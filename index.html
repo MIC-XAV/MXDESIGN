@@ -2,263 +2,1125 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0f14" />
 
-  <title>MXDESIGN</title>
-  <meta name="description" content="MXDESIGN — créations 3D minimalistes, modèles imprimables, prototypes et services sur mesure. Retrouvez mes créations sur MakerWorld." />
+  <!-- SEO -->
+  <title>MXDESIGN — Créations 3D minimalistes & impression 3D</title>
+  <meta name="description" content="MXDESIGN : créations 3D minimalistes et fonctionnelles, modèles imprimables, prototypes et services sur mesure. Retrouvez mes modèles sur MakerWorld." />
+  <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://mxdesign.tech/" />
 
-  <!-- OpenGraph -->
-  <meta property="og:title" content="MXDESIGN" />
-  <meta property="og:description" content="Créations 3D minimalistes • Modèles imprimables • Prototypes • Services sur mesure" />
+  <!-- Open Graph -->
+  <meta property="og:locale" content="fr_FR" />
   <meta property="og:type" content="website" />
+  <meta property="og:title" content="MXDESIGN — Créations 3D minimalistes" />
+  <meta property="og:description" content="Modèles imprimables • Prototypes • Services sur mesure • MakerWorld" />
   <meta property="og:url" content="https://mxdesign.tech/" />
+  <meta property="og:image" content="https://mxdesign.tech/HTML/LOGOS/logo1.png" />
 
   <style>
-    
-    
-    /* ===== Font ===== */
-@font-face{
-  font-family:"Xolonium";
-  src:url("HTML/POLICE/Xolonium-Regular.otf") format("opentype");
-  font-display:swap;
+    /* ===== Font (local) ===== */
+    @font-face{
+      font-family:"Xolonium";
+      src:url("HTML/POLICE/Xolonium-Regular.otf") format("opentype");
+      font-display:swap;
+    }
+
+    :root{
+      --bg:#0b0f14;
+      --ink:rgba(255,255,255,.90);
+      --muted:rgba(255,255,255,.64);
+      --line:rgba(255,255,255,.10);
+      --navbg: rgba(11, 15, 20, 0.70);
+      --shadow: 0 12px 28px rgba(0,0,0,.35);
+
+      --brand:#c46eff;
+
+      --container-w: 1100px;
+      --hero-h: clamp(300px, 44vh, 560px);
+
+      --gallery-gap: 12px;
+      --gallery-cols-desktop: 4;
+      --gallery-cols-tablet: 3;
+      --gallery-cols-mobile: 2;
+
+      --features-gap: 18px;
+      --features-cols-desktop: 4;
+      --features-cols-mobile: 2;
+
+      --gear-deco-size: clamp(170px, 42vw, 520px);
+      --deco-visible: .28;
+      --deco-offset: 0px;
+      --deco-overlap: 0px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+
+    /* Texte plus lisible : Xolonium seulement pour les titres */
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+    .container{max-width:var(--container-w);margin:0 auto;padding:0 clamp(12px,3vw,24px)}
+
+    /* Liens (style unique) */
+    .u-link{
+      color:var(--ink);
+      border-bottom:1px dashed rgba(255,255,255,.22);
+      padding-bottom:2px;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .u-link:hover{
+      color:#fff;
+      border-bottom-color: rgba(196,110,255,.55);
+    }
+
+    /* ===== NAV ===== */
+
+
+
+
+
+
+
+
+
+
+    /* Scrollbar custom pour la popup */
+.service-content::-webkit-scrollbar{
+  width: 8px;
 }
 
-:root{
-  --bg:#0b0f14;
-  --text:rgba(255,255,255,.86);
-  --muted:rgba(255,255,255,.62);
-  --line:rgba(255,255,255,.12);
-  --hover:rgba(255,255,255,.92);
-  --max:980px;
+.service-content::-webkit-scrollbar-track{
+  background: rgba(255,255,255,.04);
+  border-radius: 10px;
 }
 
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-body{
-  margin:0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  overflow-x:hidden;
+.service-content::-webkit-scrollbar-thumb{
+  background: linear-gradient(
+    180deg,
+    rgba(196,110,255,.8),
+    rgba(120,60,200,.8)
+  );
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(196,110,255,.5);
 }
 
-/* ===== Header (logo filigrane NON FIXE) ===== */
-header{
+.service-content::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(
+    180deg,
+    rgba(220,140,255,.95),
+    rgba(140,80,220,.95)
+  );
+}
+
+
+
+
+
+
+
+
+.service-content{
+  animation: modalIn .22s ease-out;
+}
+
+@keyframes modalIn{
+  from{ transform: translateY(10px) scale(.985); opacity:0; }
+  to{ transform: translateY(0) scale(1); opacity:1; }
+}
+
+.service-content{
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.6),
+    0 0 0 1px rgba(196,110,255,.18),
+    0 0 30px rgba(196,110,255,.18);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Image en haut du popup */
+.service-hero{
+  width: 100%;
+  max-width: 520px;              /* ajuste si tu veux plus grand */
+  aspect-ratio: 4 / 3;           /* pas carre */
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(196,110,255,.25);
+  background: rgba(255,255,255,.04);
+  box-shadow: 0 14px 40px rgba(0,0,0,.45);
+}
+
+.service-hero img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;             /* remplit bien le carré */
+  display: block;
+}
+
+@media (max-width: 520px){
+  .service-content{ padding: 40px 20px; }
+  .service-hero{ max-width: 320px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.service-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(5,8,14,.85);
+  backdrop-filter: blur(8px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  z-index:80;
+}
+
+.service-modal.open{
+  display:flex;
+}
+
+.service-content{
+  background: linear-gradient(145deg, rgba(30,18,45,.95), rgba(18,12,28,.95));
+  border:1px solid rgba(196,110,255,.35);
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  color: rgba(255,255,255,.88);
+  max-width:900px;
+  width:100%;
+  border-radius:22px;
+  padding:50px 45px;
   position:relative;
-  text-align:center;
-  padding: 72px 18px 28px;
-  overflow:hidden;
+  overflow-y:auto;
+  max-height:85vh;
 }
 
-header::before{
-  content:"";
+.service-content h3{
+  margin-top:0;
+  font-size:28px;
+  font-family:"Xolonium", sans-serif;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#c46eff;
+}
+
+.service-content p{
+  color:rgba(255,255,255,.75);
+}
+
+.service-content ul{
+  padding-left:18px;
+  color:rgba(255,255,255,.75);
+}
+
+.service-content li{
+  margin-bottom:8px;
+}
+
+.service-close{
+  position:absolute;
+  top:18px;
+  right:24px;
+  font-size:28px;
+  cursor:pointer;
+  color:rgba(255,255,255,.6);
+  transition:.2s ease;
+}
+
+.service-close:hover{
+  color:#c46eff;
+  transform:scale(1.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:18px;
+  padding:20px;
+  z-index:60;
+}
+
+.lightbox.open{
+  display:flex;
+}
+
+.lightbox img{
+  max-width:min(100%,1000px);
+  max-height:75vh;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 55px rgba(0,0,0,.55);
+}
+
+.lightbox .close{
+  position:absolute;
+  top:20px;
+  right:24px;
+  font-size:30px;
+  cursor:pointer;
+  color:#fff;
+}
+
+.lb-link{
+  font-family:"Xolonium", sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:12px;
+  padding:10px 18px;
+  border-radius:30px;
+  border:1px solid rgba(196,110,255,.45);
+  background:rgba(196,110,255,.12);
+  transition:.2s ease;
+}
+
+.lb-link:hover{
+  background:rgba(196,110,255,.22);
+}
+
+
+    .nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background: var(--navbg);
+  backdrop-filter: blur(10px) saturate(140%);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+    .nav-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:64px;
+      gap:14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+    }
+    .brand-logo{
+      height: 40px;
+      width:auto;
+      object-fit:contain;
+      opacity:.92;
+    }
+    .menu{
+      display:flex;
+      gap:clamp(14px,2.2vw,28px);
+      font-weight:800;
+      letter-spacing:.08em;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-family:"Xolonium", system-ui, sans-serif;
+    }
+    .menu a{
+      opacity:.78;
+      padding: 8px 6px;
+      border-bottom: 1px dashed transparent;
+      transition: opacity .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .menu a:hover{
+      opacity:1;
+      color: var(--brand);
+      border-bottom-color: rgba(196,110,255,.45);
+    }
+
+    /* ===== HERO ===== */
+    header.hero{
+      position:relative;
+      height:var(--hero-h);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding-top: 72px;
+      overflow:hidden;
+      text-align:center;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* image de fond */
+    header.hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url("HTML/FOND/hero.avif");
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      z-index:0;
+    }
+
+    /* overlay sombre */
+    header.hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(
+        to bottom,
+        rgba(11,15,20,.85) 0%,
+        rgba(11,15,20,.65) 50%,
+        rgba(11,15,20,.92) 100%
+      );
+      z-index:1;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      width: min(980px, 92vw);
+      margin: 0 auto;
+      padding: 0 0 18px;
+    }
+
+    /* filigrane logo (dans le hero seulement) */
+    
+
+    .hero-title{
+      position:relative;
+      margin:0;
+      font-family:"Xolonium", system-ui, sans-serif;
+      font-weight:800;
+      letter-spacing:.22em;
+      font-size: clamp(32px, 5.2vw, 64px);
+      text-transform: uppercase;
+      color: rgba(255,255,255,.90);
+    }
+    .hero-sub{
+      position:relative;
+      margin: 14px auto 0;
+      max-width: 75ch;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13.5px;
+      letter-spacing:.02em;
+    }
+
+    /* ===== SECTIONS ===== */
+    section{
+      padding: 60px 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+      scroll-margin-top: 84px;
+    }
+    h2{
+      font-family:"Xolonium", system-ui, sans-serif;
+      font-size: clamp(22px, 3.1vw, 34px);
+      margin: 0 0 14px;
+      letter-spacing:.10em;
+      text-transform: uppercase;
+    }
+    p{
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 80ch;
+    }
+
+    /* ===== SERVICES (tuiles) ===== */
+    .features-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(260px, 320px));
+  gap: 28px;
+  margin-top: 24px;
+  justify-content: center;   /* 🔥 centre les colonnes */
+}
+
+    @media (max-width: 600px){
+      .features-grid{
+  display:grid;
+  gap: var(--features-gap);
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+    }
+
+    .feature{
+      display:block;
+      cursor: pointer;
+      text-align:center;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding: 22px 18px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+      transition: transform .30s cubic-bezier(.2,1.3,.4,1), border-color .2s ease, background-color .2s ease;
+      opacity:0;
+      transform:translateY(24px) scale(.98);
+    }
+    .feature .ico{
+      width:72px;
+      height:auto;
+      margin:0 auto 10px;
+      display:block;
+      object-fit:contain;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,.35));
+      transition: transform .25s ease;
+    }
+    .feature h3{
+      margin: 10px 0 8px;
+      font-family:"Xolonium", system-ui, sans-serif;
+      font-weight:800;
+      font-size: 15px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+    }
+    .feature p{
+      font-size: 12.8px;
+      color: rgba(255,255,255,.70);
+      margin:0;
+    }
+    .feature:hover{
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(196,110,255,.45);
+      background-color: rgba(196,110,255,.08);
+    }
+    .feature:hover .ico{ transform: scale(1.06); }
+
+    @keyframes popIn{
+      0%{opacity:0;transform:translateY(24px) scale(.98)}
+      60%{opacity:1;transform:translateY(-6px) scale(1.01)}
+      100%{opacity:1;transform:translateY(0) scale(1)}
+    }
+    @keyframes popOut{
+      0%{opacity:1;transform:translateY(0) scale(1)}
+      100%{opacity:0;transform:translateY(24px) scale(.98)}
+    }
+    .feature.reveal{animation:popIn .6s cubic-bezier(.2,.8,.2,1) forwards}
+    .feature.hide{animation:popOut .35s ease forwards}
+
+    /* ===== ROUE DECO BAS ===== */
+    .gear-deco-container{
+      position: relative;
+      background: transparent;
+      height: calc(var(--gear-deco-size) * var(--deco-visible));
+      overflow: hidden;
+      z-index: 0;
+      margin-top: var(--deco-overlap);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .gear-deco-half{
+      position:absolute;
+      bottom: var(--deco-offset);
+      left:50%;
+      transform:translateX(-50%);
+    }
+    .gear-deco-img{
+      width: var(--gear-deco-size);
+      height:auto;
+      transform-origin:center;
+      opacity:.8;
+    }
+
+   /* ===== REALISATIONS (4 en ligne PC / 2x2 mobile) ===== */
+/* ===== REALISATIONS ===== */
+
+/* ===== REALISATIONS ===== */
+
+.realisations-row{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-top: 18px;
+}
+
+@media (max-width:768px){
+  .realisations-row{
+    grid-template-columns: repeat(2, 1fr);
+    gap:14px;
+  }
+}
+
+.real-card{
+  margin:0;
+  position:relative;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 10px 24px rgba(0,0,0,.30);
+  cursor:pointer;
+  background:rgba(255,255,255,.02);
+}
+
+.real-card img{
   position:absolute;
   inset:0;
-  background-image:url("HTML/IMAGES/logo.png");
-  background-repeat:no-repeat;
-  background-position: center -35px;
-  background-size: auto 240px;
-  opacity:.9;
-  pointer-events:none;
-  filter: blur(.15px);
-  z-index:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition: transform .35s cubic-bezier(.2,1.4,.4,1), filter .2s ease;
 }
 
-@media (max-width:560px){
-  header{
-    min-height: 320px;
-    padding: 72px 16px 40px;
-  }
-  header::before{
-    background-size: auto 240px;
-    background-position: center -35px; /* <-- même position */
-  }
+.real-card:hover img{
+  transform: scale(1.10);
+  filter: saturate(1.06) contrast(1.05);
 }
 
 
 
-h1{
-  position:relative;
-  z-index:1;
-  margin:0;
-  font-family:"Xolonium", system-ui, sans-serif;
-  letter-spacing:.22em;
-  font-weight:700;
-  font-size: clamp(30px, 5.3vw, 64px);
-  text-transform: uppercase;
-  color: var(--text);
-}
+    /* ===== LIGHTBOX ===== */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      height:100dvh;
+      background:rgba(0,0,0,.75);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:60;
+    }
+    .lightbox.open{ display:flex; }
+    .lightbox img{
+      max-width:min(100%,1100px);
+      max-height:90dvh;
+      border-radius:14px;
+      display:block;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 55px rgba(0,0,0,.55);
+    }
+    .lightbox .close{
+      position:absolute;
+      top:14px;
+      right:18px;
+      font-size:28px;
+      color:#fff;
+      cursor:pointer;
+      user-select:none;
+      opacity:.85;
+    }
+    .lightbox .close:hover{ opacity:1; }
 
-/* Petite ligne discrète sous le titre (pas un cadre) */
-.divider{
-  position:relative;
-  z-index:1;
-  width: min(620px, 78vw);
-  height:1px;
-  margin: 22px auto 0;
-  background: linear-gradient(90deg, transparent, var(--line), transparent);
-}
+    /* ===== CONTACT ===== */
+    .contact-cards{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap:14px;
+      margin-top:20px;
+      justify-content:center;
+    }
+    .contact-card{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      background: rgba(196,110,255,.12);
+      border: 1px solid rgba(196,110,255,.30);
+      color:#fff;
+      border-radius:14px;
+      padding:18px 20px;
+      transition:transform .15s ease, background .15s ease;
+      opacity:0;
+      transform:translateY(16px) scale(.98);
+      will-change:transform,opacity;
+    }
+    .contact-card:hover{ transform:translateY(-2px); background: rgba(196,110,255,.16); }
+    .contact-card svg{width:28px;height:28px;flex:0 0 28px}
+    .contact-card .k{
+      opacity:.80;
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-family:"Xolonium", system-ui, sans-serif;
+    }
+    .contact-card .v{font-weight:800;letter-spacing:.2px}
 
-/* ===== Layout contenu ===== */
-main{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 26px 18px 80px;
-}
+    @keyframes popUp{
+      0%{opacity:0;transform:translateY(16px) scale(.98)}
+      60%{opacity:1;transform:translateY(-4px) scale(1.01)}
+      100%{opacity:1;transform:translateY(0) scale(1)}
+    }
+    @keyframes fadeDown{
+      to{opacity:0;transform:translateY(16px) scale(.98)}
+    }
+    .contact-card.reveal-pop{ animation:popUp .55s cubic-bezier(.2,.8,.2,1) forwards; }
+    .contact-card.hide-pop{ animation:fadeDown .35s ease forwards; }
 
-section{ padding: 26px 0; }
+    .foot{
+      padding: 28px 0;
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
+      text-align:center;
+      border-top: 1px solid rgba(255,255,255,.06);
+      letter-spacing:.10em;
+      text-transform: uppercase;
+      font-family:"Xolonium", system-ui, sans-serif;
+    }
 
-h2{
-  margin: 0 0 10px;
-  font-size: 16px;
-  letter-spacing:.10em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.78);
-  font-weight: 650;
-}
-
-p{
-  margin: 0;
-  line-height: 1.75;
-  color: var(--muted);
-  max-width: 72ch;
-}
-
-/* ===== Liens ===== */
-.links{
-  display:flex;
-  flex-wrap:wrap;
-  gap: 14px 18px;
-  margin-top: 14px;
-}
-
-a{
-  color: rgba(255,255,255,.82);
-  text-decoration:none;
-  border-bottom: 1px dashed rgba(255,255,255,.22);
-  padding-bottom: 2px;
-  transition: color .12s ease, border-color .12s ease;
-}
-a:hover{
-  color: var(--hover);
-  border-bottom-color: rgba(255,255,255,.55);
-}
-
-/* ===== Liste modèles phares (sans cartes) ===== */
-.list{
-  margin-top: 12px;
-  display:grid;
-  gap: 10px;
-}
-.item{
-  display:flex;
-  flex-direction:column;
-  gap: 2px;
-}
-.item strong{
-  font-weight:650;
-  color: rgba(255,255,255,.86);
-}
-.item span{
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-/* ===== Footer ===== */
-footer{
-  margin-top: 34px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255,255,255,.08);
-  color: rgba(255,255,255,.52);
-  font-size: 13px;
-  display:flex;
-  gap: 10px 18px;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  align-items:center;
-}
-
-
-
-
-
-
-
-
+    @media (prefers-reduced-motion:reduce){
+      .feature,.contact-card{opacity:1!important;transform:none!important;animation:none!important}
+    }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>MXDESIGN</h1>
-    <div class="divider" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav-wrap">
+      <a href="#top" class="brand" aria-label="Retour en haut">
+        <img src="HTML/LOGOS/logo.png" alt="MXDESIGN" class="brand-logo" loading="lazy">
+      </a>
+      <div class="menu" aria-label="Navigation">
+        <a href="#realisations">Réalisations</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <h1 class="hero-title">MXDESIGN</h1>
+      <p class="hero-sub">
+        Créations 3D fonctionnelles - modèles imprimables, prototypage et projets sur mesure.
+        Retrouvez mes modèles sur
+        <a class="u-link" href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">MakerWorld</a>.
+      </p>
+    </div>
   </header>
 
-  <main>
-    <!-- Tu peux laisser vide si tu veux 100% minimal,
-         ou remplir petit à petit. Je te mets une base propre : -->
-
-    <section id="about">
-      <h2>À propos</h2>
-      <p>
-        Créations 3D minimalistes et fonctionnelles — modèles imprimables, prototypes et projets sur mesure.
-      </p>
-      <div class="links" aria-label="Liens">
-        <a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">MakerWorld</a>
-        <a href="https://www.patreon.com/mxdesign" target="_blank" rel="noopener">Patreon</a>
-        <a href="https://www.buymeacoffee.com/mxdesign" target="_blank" rel="noopener">Buy Me a Coffee</a>
-      </div>
-    </section>
-
-    <section id="featured">
-      <h2>Modèles phares</h2>
-      <p>Ajoute ici 5–8 liens vers tes modèles MakerWorld (sans vignettes, sans cadres).</p>
-
-      <div class="list">
-        <div class="item">
-          <strong><a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">Exemple modèle #1</a></strong>
-          <span>1 phrase courte : à quoi ça sert / pourquoi c’est cool.</span>
-        </div>
-        <div class="item">
-          <strong><a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">Exemple modèle #2</a></strong>
-          <span>1 phrase courte : optimisation impression, usage, etc.</span>
-        </div>
-        <div class="item">
-          <strong><a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">Exemple modèle #3</a></strong>
-          <span>1 phrase courte : print rapide, pratique, minimal.</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="services">
+  <!-- SERVICES -->
+  <section id="services" class="features">
+    <div class="container">
       <h2>Services</h2>
-      <p>
-        Conception / modification de pièces imprimables • Optimisation impression (solidité, temps, supports) • Prototypes rapides.
-      </p>
-    </section>
+      <p>Conception / modification de pièces imprimables • Optimisation impression • Prototypes rapides • Création numérique utile.</p>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>
-        Email : <a href="mailto:m.xav38@gmail.com">m.xav38@gmail.com</a>
-      </p>
-    </section>
+      <div class="features-grid">
+        <div class="feature" data-service="modelisation">
+          <img src="HTML/ICONES/modelisation.png" class="ico" alt="Modélisation 3D" loading="lazy">
+          <h3>Modélisation 3D</h3>
+          <p>Pièces fonctionnelles, tolérances, assemblages, optimisation impression.</p>
+        </div>
 
-    <footer>
-      <div>© <span id="y"></span> MXDESIGN</div>
-      <div class="links" aria-label="Liens footer">
-        <a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">MakerWorld</a>
-        <a href="https://www.patreon.com/mxdesign" target="_blank" rel="noopener">Patreon</a>
-        <a href="https://www.buymeacoffee.com/mxdesign" target="_blank" rel="noopener">BMC</a>
+        <div class="feature" data-service="impression">
+          <img src="HTML/ICONES/impression.png" class="ico" alt="Impression 3D" loading="lazy">
+          <h3>Impression 3D</h3>
+          <p>Conseils matière, réglages, solidité, supports, temps d’impression.</p>
+        </div>
+
+<div class="feature" data-service="developpement">
+  <img src="HTML/ICONES/developpement.png" class="ico" alt="Développement" loading="lazy">
+  <h3>Développement</h3>
+  <p>De l’idée au prototype fonctionnel, optimisation et solution sur mesure.</p>
+</div>
+
       </div>
-    </footer>
-  </main>
+    </div>
+  </section>
+
+  <!-- ROUE DECO -->
+  <div class="gear-deco-container" aria-hidden="true">
+    <div class="gear-deco-half">
+      <img src="HTML/LOGOS/ROUE_ENTIERE.png" class="gear-deco-img" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <!-- REALISATIONS -->
+  <section id="realisations">
+    <div class="container">
+      <h2>Réalisations</h2>
+      <p>Quelques exemples. Cliquez pour zoomer.</p>
+
+      <div class="realisations-row">
+  <figure class="real-card">
+    <img 
+      src="HTML/REALISATIONS/r1.avif"
+      alt="Crochet à balai"
+      data-link="https://makerworld.com/models/1668877"
+      loading="lazy">
+  </figure>
+
+  <figure class="real-card">
+    <img 
+      src="HTML/REALISATIONS/r2.avif"
+      alt="Cale de ponçage"
+      data-link="https://makerworld.com/models/2023968"
+      loading="lazy">
+  </figure>
+
+  <figure class="real-card">
+    <img 
+      src="HTML/REALISATIONS/r3.avif"
+      alt="Lampe design 1"
+      data-link="https://makerworld.com/models/2155874"
+      loading="lazy">
+  </figure>
+
+  <figure class="real-card">
+    <img 
+      src="HTML/REALISATIONS/r4.avif"
+      alt="Lampe design 2"
+      data-link="https://makerworld.com/models/2168050"
+      loading="lazy">
+  </figure>
+</div>
+
+
+
+      <p style="margin-top:18px">
+        Tous mes modèles :
+        <a class="u-link" href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">makerworld.com/@mxdesign</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p>Parlons de ton projet (pièce imprimable, adaptation, prototype, optimisation).</p>
+
+      <div class="contact-cards">
+  <a class="contact-card" href="mailto:m.xav38@gmail.com">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M2 6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm2 .5V18h16V6.5l-8 5-8-5z"/></svg>
+    <div><div class="k">Email</div><div class="v">m.xav38@gmail.com</div></div>
+  </a>
+
+  <a class="contact-card" href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l9 5v10l-9 5-9-5V7l9-5zm0 2.3L5 8v8l7 3.7 7-3.7V8l-7-3.7z"/></svg>
+    <div><div class="k">MakerWorld</div><div class="v">@mxdesign</div></div>
+  </a>
+
+  <a class="contact-card" href="https://www.etsy.com/fr/shop/shopmxdesign" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4h10v3H10v3h6v3h-6v4h7v3H7V4z"/></svg>
+    <div><div class="k">Etsy</div><div class="v">shopmxdesign</div></div>
+  </a>
+</div>
+
+    </div>
+  </section>
+
+  <div class="foot">© <span id="y"></span> MXDESIGN</div>
+
+
+
+
+
+
+<div class="service-modal" id="serviceModal">
+  <div class="service-content">
+    <span class="service-close">×</span>
+    <div class="service-body"></div>
+  </div>
+</div>
+
+
+
+
+
+
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    /* Apparition des tuiles Services */
+    (function(){
+      const cards = document.querySelectorAll('.features .feature');
+      if (!('IntersectionObserver' in window) || !cards.length) {
+        cards.forEach(c => { c.style.opacity = 1; c.style.transform = 'none'; });
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          const el = entry.target; el.classList.remove('reveal','hide');
+          if(entry.isIntersecting){ el.classList.add('reveal'); } else { el.classList.add('hide'); }
+        });
+      }, { threshold: 0.12, rootMargin: '120px 0px' });
+      cards.forEach(c => io.observe(c));
+    })();
+
+    /* Cartes contact pop */
+    (function(){
+      const cards = document.querySelectorAll('.contact-cards .contact-card');
+      if (!cards.length) return;
+      if (!('IntersectionObserver' in window)) {
+        cards.forEach(c => { c.style.opacity = 1; c.style.transform = 'none'; });
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          const el = entry.target;
+          el.classList.remove('reveal-pop','hide-pop');
+          if(entry.isIntersecting){
+            const i = [...el.parentNode.children].indexOf(el);
+            el.style.animationDelay = `${i * 60}ms`;
+            el.classList.add('reveal-pop');
+          } else {
+            el.classList.add('hide-pop');
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '120px 0px' });
+      cards.forEach(c => io.observe(c));
+    })();
+
+/* Lightbox avec lien MakerWorld */
+(function(){
+  const imgs = document.querySelectorAll('.real-card img');
+  if(!imgs.length) return;
+
+  let lb = document.querySelector('.lightbox');
+  if(!lb){
+    lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = `
+      <span class="close">×</span>
+      <img alt="zoom">
+      <a class="lb-link" target="_blank" rel="noopener">Voir sur MakerWorld</a>
+    `;
+    document.body.appendChild(lb);
+  }
+
+  const imgTag = lb.querySelector('img');
+  const linkTag = lb.querySelector('.lb-link');
+  const close  = lb.querySelector('.close');
+
+  imgs.forEach(el=>{
+    el.addEventListener('click', ()=>{
+      imgTag.src = el.src;
+      linkTag.href = el.dataset.link;
+      lb.classList.add('open');
+    });
+  });
+
+  const closeLb = ()=>{
+    lb.classList.remove('open');
+    imgTag.src = '';
+  };
+
+  close.addEventListener('click', closeLb);
+  lb.addEventListener('click', (e)=>{
+    if(e.target===lb) closeLb();
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='Escape') closeLb();
+  });
+})();
+
+
+    /* Rotation roue déco bas */
+    (function(){
+      const deco = document.querySelector('.gear-deco-img');
+      if (!deco) return;
+      const DEG_PER_PX = 0.18;
+      function update(){ deco.style.transform = `rotate(${(window.scrollY * DEG_PER_PX) % 360}deg)`; }
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking){ requestAnimationFrame(()=>{ update(); ticking = false; }); ticking = true; }
+      }, { passive:true });
+      update();
+    })();
+
+    /* Clique logo nav = retour haut */
+    document.addEventListener("DOMContentLoaded", () => {
+      const brand = document.querySelector(".brand");
+      if (brand) {
+        brand.addEventListener("click", (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+    });
+
+
+
+
+(function(){
+  const modal = document.getElementById("serviceModal");
+  if(!modal) return;
+
+  const body  = modal.querySelector(".service-body");
+  const close = modal.querySelector(".service-close");
+
+
+const services = {
+  modelisation: `
+    <div class="service-hero">
+      <img src="HTML/FOND/modelisation.avif" alt="Logiciels de modélisation">
+    </div>
+
+    <h3>Modélisation 3D professionnelle</h3>
+    <p>Conception sur logiciels professionnels :</p>
+    <ul>
+      <li><strong>SolidWorks</strong> – Modélisation paramétrique industrielle</li>
+      <li><strong>SolidWorks Visualize</strong> – Rendus photoréalistes</li>
+      <li><strong>Photoshop</strong> – Retouche et présentation</li>
+    </ul>
+    <p>Conception technique avec gestion des tolérances, assemblages et contraintes mécaniques.</p>
+  `,
+
+  impression: `
+    <div class="service-hero">
+      <img src="HTML/FOND/h2d.avif" alt="Bambu Lab H2D">
+    </div>
+
+    <h3>Impression 3D – Bambu Lab H2D</h3>
+    <p>Machine haut de gamme avec :</p>
+    <ul>
+      <li>Calibration automatique</li>
+      <li>Analyse Lidar</li>
+      <li>Haute précision dimensionnelle</li>
+      <li>Découpe & gravure laser intégrée</li>
+    </ul>
+    <p>Production de prototypes et pièces fonctionnelles haute qualité.</p>
+  `,
+
+developpement: `
+<div class="service-hero">
+      <img src="HTML/FOND/developpement.avif" alt="developpement">
+    </div>
+  <h3>Développement & sur mesure</h3>
+  <p>Accompagnement complet :</p>
+  <ul>
+    <li>Analyse du besoin</li>
+    <li>Conception technique</li>
+    <li>Prototypage & itérations</li>
+    <li>Optimisation mécanique & matière</li>
+  </ul>
+  <p>Plus de 15 ans d’expérience en usinage et conception 3D.</p>
+`,
+
+};
+
+
+  document.querySelectorAll(".feature").forEach(card=>{
+    card.addEventListener("click", ()=>{
+      const key = card.dataset.service;
+      if(services[key]){
+        body.innerHTML = services[key];
+        modal.classList.add("open");
+      }
+    });
+  });
+
+  close.addEventListener("click", ()=> modal.classList.remove("open"));
+  modal.addEventListener("click", e=>{
+    if(e.target === modal) modal.classList.remove("open");
+  });
+
+
+
+
+
+
+
+  function openModal(html){
+    body.innerHTML = html;
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(){
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".feature").forEach(card=>{
+    card.addEventListener("click", ()=>{
+      const key = card.dataset.service;
+      if(services[key]) openModal(services[key]);
+    });
+  });
+
+  close.addEventListener("click", closeModal);
+  modal.addEventListener("click", e=>{
+    if(e.target === modal) closeModal();
+  });
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && modal.classList.contains("open")) closeModal();
+  });
+
+
+
+
+
+
+
+})();
+
+
+
+
+
   </script>
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
