@@ -1,92 +1,385 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>MX Design</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f14" />
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
+  <title>MXDESIGN — Conception 3D & Création Numérique</title>
+  <meta name="description" content="MXDESIGN : conception 3D, création numérique, prototypes, supports et accessoires imprimables. Retrouvez mes modèles sur MakerWorld et contactez-moi pour un projet." />
+  <link rel="canonical" href="https://mxdesign.tech/" />
 
-        body {
-            height: 100vh;
-            background: radial-gradient(circle at center, #111 0%, #0a0a0a 60%, #000 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-            position: relative;
-        }
+  <!-- OpenGraph -->
+  <meta property="og:title" content="MXDESIGN — Conception 3D & Création Numérique" />
+  <meta property="og:description" content="Conception 3D • Prototypage • Création numérique • Retrouvez mes modèles sur MakerWorld." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mxdesign.tech/" />
 
-        /* Filigrane logo */
-        .background-logo {
-            position: absolute;
-            width: 600px;
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 0;
-        }
+  <style>
+    /* ===== Font ===== */
+    @font-face{
+      font-family: "Xolonium";
+      src: url("HTML/POLICE/Xolonium-Regular.otf") format("opentype");
+      font-display: swap;
+    }
 
-        .container {
-            position: relative;
-            z-index: 1;
-        }
+    :root{
+      --bg:#0b0f14;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.035);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --line: rgba(255,255,255,.12);
+      --accent: rgba(196, 110, 255, .95); /* violet néon soft */
+      --shadow: 0 14px 40px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
 
-        h1 {
-            font-size: 3rem;
-            letter-spacing: 6px;
-            font-weight: 600;
-        }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(196,110,255,.10), transparent 55%),
+                  radial-gradient(900px 600px at 85% 60%, rgba(120,200,255,.06), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x:hidden;
+    }
 
-        .line {
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, #8a2be2, #ff00ff);
-            margin: 20px auto;
-        }
+    /* Filigrane logo */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-10%;
+      background-image:url("HTML/IMAGES/logo.png");
+      background-repeat:no-repeat;
+      background-position: 80% 55%;
+      background-size: min(720px, 85vw);
+      opacity:.06;
+      filter: blur(.2px);
+      pointer-events:none;
+      transform: rotate(-6deg);
+    }
 
-        p {
-            color: #bbb;
-            font-size: 1.1rem;
-            margin-top: 10px;
-        }
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 42px 18px 70px;
+      position:relative;
+    }
 
-        .coming {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #777;
-            letter-spacing: 2px;
-        }
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom: 26px;
+    }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      user-select:none;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(196,110,255,.65);
+    }
 
-            .background-logo {
-                width: 500px;
-            }
-        }
-    </style>
+    h1{
+      margin:0;
+      font-family:"Xolonium", system-ui, sans-serif;
+      letter-spacing:.14em;
+      font-weight: 700;
+      font-size: clamp(26px, 4.5vw, 44px);
+      text-transform: uppercase;
+      text-shadow: 0 6px 20px rgba(0,0,0,.55);
+    }
+
+    .toplinks{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      text-decoration:none;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      white-space:nowrap;
+      font-size: 14px;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(196,110,255,.45);
+      background: rgba(196,110,255,.08);
+    }
+    .btn.primary{
+      border-color: rgba(196,110,255,.55);
+      background: rgba(196,110,255,.12);
+    }
+
+    .hero{
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      left: -20%;
+      top:-60%;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle at 30% 30%, rgba(196,110,255,.18), transparent 60%);
+      transform: rotate(10deg);
+      opacity:.85;
+      pointer-events:none;
+    }
+
+    .subtitle{
+      position:relative;
+      margin:0 0 10px;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.6;
+      max-width: 62ch;
+    }
+
+    .chips{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin: 14px 0 18px;
+      position:relative;
+    }
+    .chip{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: rgba(255,255,255,.78);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+      position:relative;
+    }
+
+    .card{
+      grid-column: span 4;
+      background: rgba(0,0,0,.22);
+      border:1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 120px;
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(196,110,255,.35);
+    }
+    .card h3{
+      margin:0 0 6px;
+      font-size: 15px;
+      letter-spacing:.03em;
+    }
+    .card p{
+      margin:0;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    details{
+      margin-top: 14px;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(0,0,0,.20);
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer;
+      padding: 14px 16px;
+      list-style:none;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      user-select:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    summary span{
+      font-weight: 600;
+      letter-spacing:.02em;
+    }
+    summary .chev{
+      opacity:.7;
+      transition: transform .15s ease;
+    }
+    details[open] summary .chev{ transform: rotate(180deg); }
+    .details-body{
+      padding: 0 16px 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 13.8px;
+    }
+
+    footer{
+      margin-top: 22px;
+      padding: 18px 4px 0;
+      color: rgba(255,255,255,.55);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    .links{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .link{
+      color: rgba(255,255,255,.82);
+      text-decoration:none;
+      border-bottom: 1px dashed rgba(255,255,255,.22);
+    }
+    .link:hover{ border-bottom-color: rgba(196,110,255,.6); }
+
+    @media (max-width: 860px){
+      .card{ grid-column: span 6; }
+    }
+    @media (max-width: 560px){
+      header{ flex-direction:column; align-items:flex-start; }
+      .toplinks{ justify-content:flex-start; }
+      .hero{ padding: 18px; }
+      .card{ grid-column: span 12; }
+      body::before{ background-position: 55% 58%; opacity:.05; }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="dot" aria-hidden="true"></div>
+        <h1>MXDESIGN</h1>
+      </div>
 
-    <!-- Remplace mx-logo.png par ton logo -->
-    <img src="HTML/logo.png" alt="MX Logo" class="background-logo">
+      <nav class="toplinks" aria-label="Liens rapides">
+        <a class="btn primary" href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">🔗 MakerWorld</a>
+        <a class="btn" href="https://www.patreon.com/mxdesign" target="_blank" rel="noopener">⭐ Patreon</a>
+        <a class="btn" href="https://www.buymeacoffee.com/mxdesign" target="_blank" rel="noopener">☕ Buy Me a Coffee</a>
+      </nav>
+    </header>
 
-    <div class="container">
-        <h1>MX DESIGN</h1>
-        <div class="line"></div>
-        <p>Conception 3D · Développement · Création Numérique</p>
-        <div class="coming">SITE EN CONSTRUCTION</div>
-    </div>
+    <main class="hero">
+      <p class="subtitle">
+        Conception 3D & création numérique — designs minimalistes, accessoires pratiques, prototypes,
+        et projets sur mesure. Retrouvez mes modèles imprimables et mes réalisations.
+      </p>
 
+      <div class="chips" aria-label="Domaines">
+        <div class="chip">🧩 Modélisation 3D</div>
+        <div class="chip">🖨️ Impression 3D</div>
+        <div class="chip">⚙️ Prototypage</div>
+        <div class="chip">💻 Programmation</div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h3>Impression 3D</h3>
+          <p>Designs fonctionnels, optimisés pour l’impression, testés et itérés (tolérances, assemblages, etc.).</p>
+        </section>
+
+        <section class="card">
+          <h3>Création numérique</h3>
+          <p>Interfaces, pages web utiles, outils simples et efficaces (focus : usage réel + mobile-friendly).</p>
+        </section>
+
+        <section class="card">
+          <h3>Projets sur mesure</h3>
+          <p>Une idée, un besoin précis : on définit le cahier des charges et on passe à un prototype rapide.</p>
+        </section>
+      </div>
+
+      <details>
+        <summary>
+          <span>📂 Réalisations (à compléter)</span>
+          <span class="chev">▾</span>
+        </summary>
+        <div class="details-body">
+          <ul>
+            <li>Ajoute ici 6–10 modèles “phares” (nom + 1 phrase + lien MakerWorld).</li>
+            <li>Tu peux aussi mettre des mini-captures (mais pas dans /HTML si tu veux éviter l’indexation).</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>🧾 Services (à préciser)</span>
+          <span class="chev">▾</span>
+        </summary>
+        <div class="details-body">
+          <ul>
+            <li>Conception / modif de pièces imprimables</li>
+            <li>Optimisation impression (solidité, temps, supports)</li>
+            <li>Petits outils web / scripts / automatisations</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>✉️ Contact</span>
+          <span class="chev">▾</span>
+        </summary>
+        <div class="details-body">
+          <p>
+            Email : <a class="link" href="mailto:m.xav38@gmail.com">m.xav38@gmail.com</a><br/>
+            MakerWorld : <a class="link" href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">makerworld.com/@mxdesign</a>
+          </p>
+        </div>
+      </details>
+
+      <footer>
+        <div>© <span id="y"></span> MXDESIGN — tous droits réservés.</div>
+        <div class="links">
+          <a class="link" href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">MakerWorld</a>
+          <a class="link" href="https://www.patreon.com/mxdesign" target="_blank" rel="noopener">Patreon</a>
+          <a class="link" href="https://www.buymeacoffee.com/mxdesign" target="_blank" rel="noopener">Buy Me a Coffee</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
