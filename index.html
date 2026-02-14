@@ -1,1 +1,92 @@
-hello
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>MX Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: radial-gradient(circle at center, #111 0%, #0a0a0a 60%, #000 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Filigrane logo */
+        .background-logo {
+            position: absolute;
+            width: 600px;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 6px;
+            font-weight: 600;
+        }
+
+        .line {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, #8a2be2, #ff00ff);
+            margin: 20px auto;
+        }
+
+        p {
+            color: #bbb;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .coming {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #777;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .background-logo {
+                width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Remplace mx-logo.png par ton logo -->
+    <img src="HTML/logo.png" alt="MX Logo" class="background-logo">
+
+    <div class="container">
+        <h1>MX DESIGN</h1>
+        <div class="line"></div>
+        <p>Conception 3D · Développement · Création Numérique</p>
+        <div class="coming">SITE EN CONSTRUCTION</div>
+    </div>
+
+</body>
+</html>
