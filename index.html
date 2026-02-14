@@ -1,78 +1,250 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MXDESIGN</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f14" />
 
-<style>
-@font-face{
-  font-family:"Xolonium";
-  src:url("assets/fonts/Xolonium-Regular.otf") format("opentype");
-  font-display:swap;
-}
+  <title>MXDESIGN</title>
+  <meta name="description" content="MXDESIGN — créations 3D minimalistes, modèles imprimables, prototypes et services sur mesure. Retrouvez mes créations sur MakerWorld." />
+  <link rel="canonical" href="https://mxdesign.tech/" />
 
-:root{
-  --bg:#0b0f14;
-  --text:rgba(255,255,255,.88);
-}
+  <!-- OpenGraph -->
+  <meta property="og:title" content="MXDESIGN" />
+  <meta property="og:description" content="Créations 3D minimalistes • Modèles imprimables • Prototypes • Services sur mesure" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mxdesign.tech/" />
 
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  overflow-x:hidden;
-}
+  <style>
+    /* ===== Font ===== */
+    @font-face{
+      font-family:"Xolonium";
+      src:url("HTML/POLICE/Xolonium-Regular.otf") format("opentype");
+      font-display:swap;
+    }
 
-/* Logo en fond */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background-image:url("HTML/IMAGES/logo.png");
-  background-repeat:no-repeat;
-  background-position:center -10%;
-  background-size:min(55vw,650px);
-  opacity:.4;
-  pointer-events:none;
-}
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.86);
+      --muted:rgba(255,255,255,.62);
+      --line:rgba(255,255,255,.12);
+      --hover:rgba(255,255,255,.92);
+      --max:980px;
+    }
 
-/* Header */
-header{
-  padding:60px 20px 40px;
-  text-align:center;
-}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      overflow-x:hidden;
+    }
 
-h1{
-  margin:0;
-  font-family:"Xolonium", sans-serif;
-  letter-spacing:.18em;
-  font-size:clamp(28px,5vw,56px);
-  font-weight:700;
-  text-transform:uppercase;
-  color:var(--text);
-}
+    /* ===== Header (logo filigrane NON FIXE) ===== */
+    header{
+      position:relative;
+      text-align:center;
+      padding: 72px 18px 28px;
+      overflow:hidden; /* important: le filigrane reste dans le header */
+    }
 
-/* Contenu plus bas */
-main{
-  max-width:900px;
-  margin:0 auto;
-  padding:40px 20px 80px;
-}
-</style>
+    header::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url("HTML/IMAGES/logo.png");
+      background-repeat:no-repeat;
+      background-position:center 42%;
+      background-size:min(36vw, 430px);
+      opacity:.5;              /* ajuste ici si tu veux + / - visible */
+      pointer-events:none;
+      filter: blur(.15px);
+      transform: translateY(-8px);
+    }
+
+    h1{
+      position:relative;
+      z-index:1;
+      margin:0;
+      font-family:"Xolonium", system-ui, sans-serif;
+      letter-spacing:.22em;
+      font-weight:700;
+      font-size: clamp(30px, 5.3vw, 64px);
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    /* Petite ligne discrète sous le titre (pas un cadre) */
+    .divider{
+      position:relative;
+      z-index:1;
+      width: min(620px, 78vw);
+      height:1px;
+      margin: 22px auto 0;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+    }
+
+    /* ===== Layout contenu ===== */
+    main{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 26px 18px 80px;
+    }
+
+    section{
+      padding: 26px 0;
+    }
+
+    h2{
+      margin: 0 0 10px;
+      font-size: 16px;
+      letter-spacing:.10em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+      font-weight: 650;
+    }
+
+    p{
+      margin: 0;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    /* ===== Liens ===== */
+    .links{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 14px 18px;
+      margin-top: 14px;
+    }
+
+    a{
+      color: rgba(255,255,255,.82);
+      text-decoration:none;
+      border-bottom: 1px dashed rgba(255,255,255,.22);
+      padding-bottom: 2px;
+      transition: color .12s ease, border-color .12s ease;
+    }
+    a:hover{
+      color: var(--hover);
+      border-bottom-color: rgba(255,255,255,.55);
+    }
+
+    /* ===== Liste modèles phares (sans cartes) ===== */
+    .list{
+      margin-top: 12px;
+      display:grid;
+      gap: 10px;
+    }
+    .item{
+      display:flex;
+      flex-direction:column;
+      gap: 2px;
+    }
+    .item strong{
+      font-weight:650;
+      color: rgba(255,255,255,.86);
+    }
+    .item span{
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ===== Footer ===== */
+    footer{
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.52);
+      font-size: 13px;
+      display:flex;
+      gap: 10px 18px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    /* Mobile ajustements */
+    @media (max-width:560px){
+      header{ padding: 62px 16px 22px; }
+      header::before{ background-size:min(92vw, 820px); opacity:.055; }
+      .links{ gap: 10px 14px; }
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <h1>MXDESIGN</h1>
+    <div class="divider" aria-hidden="true"></div>
+  </header>
 
-<header>
-  <h1>MXDESIGN</h1>
-</header>
+  <main>
+    <!-- Tu peux laisser vide si tu veux 100% minimal,
+         ou remplir petit à petit. Je te mets une base propre : -->
 
-<main>
-  <!-- On ajoutera les sections ici -->
-</main>
+    <section id="about">
+      <h2>À propos</h2>
+      <p>
+        Créations 3D minimalistes et fonctionnelles — modèles imprimables, prototypes et projets sur mesure.
+      </p>
+      <div class="links" aria-label="Liens">
+        <a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">MakerWorld</a>
+        <a href="https://www.patreon.com/mxdesign" target="_blank" rel="noopener">Patreon</a>
+        <a href="https://www.buymeacoffee.com/mxdesign" target="_blank" rel="noopener">Buy Me a Coffee</a>
+      </div>
+    </section>
 
+    <section id="featured">
+      <h2>Modèles phares</h2>
+      <p>Ajoute ici 5–8 liens vers tes modèles MakerWorld (sans vignettes, sans cadres).</p>
+
+      <div class="list">
+        <div class="item">
+          <strong><a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">Exemple modèle #1</a></strong>
+          <span>1 phrase courte : à quoi ça sert / pourquoi c’est cool.</span>
+        </div>
+        <div class="item">
+          <strong><a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">Exemple modèle #2</a></strong>
+          <span>1 phrase courte : optimisation impression, usage, etc.</span>
+        </div>
+        <div class="item">
+          <strong><a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">Exemple modèle #3</a></strong>
+          <span>1 phrase courte : print rapide, pratique, minimal.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2>Services</h2>
+      <p>
+        Conception / modification de pièces imprimables • Optimisation impression (solidité, temps, supports) • Prototypes rapides.
+      </p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        Email : <a href="mailto:m.xav38@gmail.com">m.xav38@gmail.com</a>
+      </p>
+    </section>
+
+    <footer>
+      <div>© <span id="y"></span> MXDESIGN</div>
+      <div class="links" aria-label="Liens footer">
+        <a href="https://makerworld.com/@mxdesign" target="_blank" rel="noopener">MakerWorld</a>
+        <a href="https://www.patreon.com/mxdesign" target="_blank" rel="noopener">Patreon</a>
+        <a href="https://www.buymeacoffee.com/mxdesign" target="_blank" rel="noopener">BMC</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
