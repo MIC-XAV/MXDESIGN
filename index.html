@@ -431,9 +431,9 @@
       inset:0;
       background: linear-gradient(
         to bottom,
-        rgba(11,15,20,.85) 0%,
-        rgba(11,15,20,.65) 50%,
-        rgba(11,15,20,.92) 100%
+       rgba(11,15,20,.75) 0%,
+    rgba(11,15,20,.55) 50%,
+    rgba(11,15,20,.82) 100%
       );
       z-index:1;
     }
@@ -737,6 +737,34 @@
     @media (prefers-reduced-motion:reduce){
       .feature,.contact-card{opacity:1!important;transform:none!important;animation:none!important}
     }
+
+
+
+
+
+@media (max-width:768px){
+
+  /* Réduire padding sections */
+  #realisations,
+  #contact{
+    padding: 45px 0; /* avant 60px */
+  }
+
+  /* Réduire taille titres */
+  #realisations h2,
+  #contact h2{
+    font-size: 90%;
+  }
+
+  /* Réduire texte */
+  #realisations p,
+  #contact p{
+    font-size: 95%;
+  }
+
+}
+
+
   </style>
 </head>
 
