@@ -230,26 +230,33 @@
 
 .service-content h3{
   margin-top:0;
-  font-size:22px;
+  font-size: clamp(18px, 2.5vw, 24px);
   font-family:"Xolonium", sans-serif;
-  letter-spacing:.08em;
+  letter-spacing:.06em;
   text-transform:uppercase;
   color:#c46eff;
+  text-align:center;
 }
+
 
 .service-content p{
-  color:rgba(255,255,255,.75);
+  font-size: clamp(14px, 2vw, 16px);
+  line-height:1.7;
+  text-align:center;
 }
 
+
 .service-content ul{
-  list-style: none;
-  padding-left:18px;
-  color:rgba(255,255,255,.75);
+  font-size: clamp(14px, 2vw, 16px);
+  list-style:none;
+  padding:0;
+  text-align:center;
 }
 
 .service-content li{
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
+
 
 .service-close{
   position:absolute;
