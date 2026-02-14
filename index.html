@@ -748,6 +748,154 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+/* ===== ABOUT / CREDIBILITY BAND ===== */
+.about-band{
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.about-card{
+  background: linear-gradient(145deg, rgba(196,110,255,.10), rgba(255,255,255,.02));
+  border: 1px solid rgba(196,110,255,.28);
+  box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  border-radius: 22px;
+  padding: 26px 26px;
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 22px;
+  align-items: start;
+}
+
+@media (max-width: 768px){
+  .about-grid{ grid-template-columns: 1fr; }
+  .about-card{ padding: 22px 18px; }
+}
+
+/* titre */
+.about-title{
+  margin:0 0 10px;
+  font-family:"Xolonium", system-ui, sans-serif;
+  letter-spacing:.10em;
+  text-transform: uppercase;
+  font-size: clamp(18px, 2.3vw, 26px);
+  color: rgba(255,255,255,.92);
+}
+.about-title .accent{ color: var(--brand); }
+
+/* texte */
+.about-text{
+  margin:0;
+  color: rgba(255,255,255,.72);
+  line-height: 1.75;
+  max-width: 75ch;
+}
+
+/* liste compétences */
+.about-bullets{
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none; /* enlève les puces */
+  display: grid;
+  gap: 8px;
+  color: rgba(255,255,255,.72);
+}
+.about-bullets li{
+  padding-left: 18px;
+  position: relative;
+}
+.about-bullets li::before{
+  content:"✦";
+  position:absolute;
+  left:0;
+  top:0;
+  color: rgba(196,110,255,.85);
+}
+
+/* stats */
+/* Stats MakerWorld - version badges premium */
+.stats{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+  align-content:start;
+}
+
+.stat{
+  border-radius: 14px;
+  padding: 12px 12px;
+  border: 1px solid rgba(196,110,255,.18);
+  background: linear-gradient(145deg, rgba(196,110,255,.10), rgba(255,255,255,.02));
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+
+.stat .n{
+  font-family:"Xolonium", system-ui, sans-serif;
+  letter-spacing:.08em;
+  font-size: 16px;          /* ↓ plus petit */
+  line-height: 1.1;
+  color: rgba(255,255,255,.92);
+}
+
+.stat .l{
+  margin-top: 6px;
+  font-size: 10.5px;        /* ↓ plus petit */
+  letter-spacing:.10em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.58);
+}
+
+
+/* option : mini galerie carrée (si tu ajoutes des photos) */
+.about-photos{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.about-photos img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 10px 22px rgba(0,0,0,.30);
+}
+@media (max-width: 500px){
+  .about-photos{ grid-template-columns: repeat(2, 1fr); }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </style>
 </head>
 
@@ -813,6 +961,95 @@
       <img src="HTML/LOGOS/ROUE_ENTIERE.png" class="gear-deco-img" alt="" loading="lazy">
     </div>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="apropos" class="about-band">
+  <div class="container">
+    <div class="about-card">
+      <div class="about-grid">
+
+        <!-- Texte / crédibilité -->
+        <div>
+          <h2 class="about-title"><span class="accent">15 ans</span> d’expertise technique</h2>
+
+          <p class="about-text">
+            Je conçois des pièces fonctionnelles et optimisées pour l’usage réel, avec une approche “industrie” :
+            tolérances, assemblages, ajustements, résistance et fiabilité. Mon parcours vient de l’usinage de précision
+            (tournage CN) et de la conception technique, avec une exigence forte sur la qualité et les détails.
+          </p>
+
+          <ul class="about-bullets">
+            <li>Usinage de précision • tournage commande numérique</li>
+            <li>Ajustements, montage, optimisation fonctionnelle</li>
+            <li>Conception orientée contraintes & usage (pièces durables)</li>
+            <li>Projets exigeants (industrie à haut niveau d’exigence)</li>
+          </ul>
+
+         
+          
+          <div class="about-photos" aria-label="Aperçu">
+            <img src="HTML/FOND/about1.avif" alt="Atelier / machine">
+            <img src="HTML/FOND/about2.avif" alt="Conception / écran">
+            <img src="HTML/FOND/about3.avif" alt="Prototype / pièce">
+          </div>
+         
+        </div>
+
+        <!-- Stats MakerWorld -->
+        <div class="stats" aria-label="Statistiques MakerWorld">
+          <div class="stat">
+            <div class="n">2 300+</div>
+            <div class="l">Abonnés</div>
+          </div>
+          <div class="stat">
+            <div class="n">66 000+</div>
+            <div class="l">Téléchargements</div>
+          </div>
+          <div class="stat">
+            <div class="n">40 000+</div>
+            <div class="l">Impressions confirmées</div>
+          </div>
+          <div class="stat">
+            <div class="n">24 000+</div>
+            <div class="l">Likes reçus</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- REALISATIONS -->
   <section id="realisations">
