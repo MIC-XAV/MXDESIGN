@@ -490,11 +490,10 @@
 }
 
     @media (max-width: 600px){
-      .features-grid{
-  display:grid;
-  gap: var(--features-gap);
-  grid-template-columns: repeat(3, minmax(0,1fr));
-}
+  .features-grid{
+    grid-template-columns: 1fr;
+  }
+
 
     }
 
@@ -688,6 +687,21 @@
       font-family:"Xolonium", system-ui, sans-serif;
     }
     .contact-card .v{font-weight:800;letter-spacing:.2px}
+
+
+
+
+
+
+@media (max-width: 800px){
+  .contact-cards{
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
 
     @keyframes popUp{
       0%{opacity:0;transform:translateY(16px) scale(.98)}
