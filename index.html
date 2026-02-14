@@ -50,19 +50,29 @@
       overflow:hidden; /* important: le filigrane reste dans le header */
     }
 
-    header::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image:url("HTML/IMAGES/logo.png");
-      background-repeat:no-repeat;
-      background-position:center 42%;
-      background-size:min(36vw, 430px);
-      opacity:.7;              /* ajuste ici si tu veux + / - visible */
-      pointer-events:none;
-      filter: blur(.15px);
-      transform: translateY(-8px);
-    }
+header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url("HTML/IMAGES/logo.png");
+  background-repeat:no-repeat;
+  background-position:center 42%;
+  background-size:min(36vw, 430px);
+  opacity:.7;
+  pointer-events:none;
+  filter: blur(.15px);
+  transform: translateY(-8px);
+}
+@media (max-width:560px){
+  header{
+    min-height:260px;   /* laisse respirer le logo */
+  }
+  header::before{
+    background-size: 75vw;   /* beaucoup plus adapté mobile */
+    background-position:center 50%;
+  }
+}
+
 
     h1{
       position:relative;
