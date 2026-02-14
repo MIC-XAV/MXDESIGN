@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /HTML/
+Allow: /
+
+Sitemap: https://mxdesign.tech/sitemap.xml
