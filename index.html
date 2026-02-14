@@ -36,6 +36,7 @@
       --shadow: 0 12px 28px rgba(0,0,0,.35);
 
       --brand:#c46eff;
+      --brand2:#f940ff;
 
       --container-w: 1100px;
       --hero-h: clamp(300px, 44vh, 560px);
@@ -392,10 +393,12 @@
       padding: 8px 6px;
       border-bottom: 1px dashed transparent;
       transition: opacity .15s ease, border-color .15s ease, color .15s ease;
+      color: var(--brand);
+      
     }
     .menu a:hover{
       opacity:1;
-      color: var(--brand);
+      color: var(--brand2);
       border-bottom-color: rgba(196,110,255,.45);
     }
 
