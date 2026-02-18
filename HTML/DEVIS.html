@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>&#8203;</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* Logo site (bas de page, non imprimé) */
+    .site-footer-logo {
+      width: 100%;
+      text-align: center;
+      padding: 25px 0;
+      margin-top: 5px;
+    }
+
+    .site-logo-img {
+      width: 180px;     /* ajuste si besoin */
+      opacity: 0.9;
+    }
+
+    :root{
+      --bg:#111317;
+      --card:#1d2129;
+      --accent:#3fb5ff;
+      --accent-soft:rgba(63,181,255,0.15);
+      --text:#f5f5f5;
+      --muted:#a0a4af;
+      --border:#2a2f3a;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      padding:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      background:radial-gradient(circle at top,#202736,#111317);
+      color:var(--text);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      min-height:100vh;
+    }
+
+    .page{
+      width:100%;
+      max-width:1000px;
+      padding:16px;
+    }
+
+    h1{
+      margin:0 0 16px;
+      font-size:1.0rem;
+      text-align:center;
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+      color:var(--accent);
+      text-shadow:0 0 8px rgba(63,181,255,0.6);
+      line-height:1.25em;
+    }
+
+    .h1-sub{
+      font-size:1.6rem;
+      display:block;
+      margin-top:4px;
+    }
+
+    .layout{
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:16px;
+      padding:16px;
+      border:1px solid var(--border);
+      box-shadow:0 14px 35px rgba(0,0,0,0.35);
+    }
+
+    .form-card{
+      flex:1 1 320px;
+      min-width:280px;
+    }
+
+    .quote-card{
+      flex:1 1 420px;
+      min-width:320px;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+      padding:0;
+    }
+
+    .section-title{
+      font-size:0.95rem;
+      margin:0 0 12px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    label{
+      font-size:0.8rem;
+      color:var(--muted);
+      display:block;
+      margin-bottom:3px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    select{
+      width:100%;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#141821;
+      color:var(--text);
+      font-size:0.9rem;
+      outline:none;
+      transition:border 0.15s,box-shadow 0.15s,background 0.15s;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    textarea:focus,
+    select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px var(--accent-soft);
+      background:#101520;
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:70px;
+    }
+
+    .inline-fields{
+      display:flex;
+      gap:8px;
+    }
+
+    .inline-fields > div{ flex:1; }
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    button{
+      border:none;
+      border-radius:999px;
+      padding:8px 14px;
+      font-size:0.85rem;
+      font-weight:500;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:var(--accent);
+      color:#021018;
+      box-shadow:0 8px 18px rgba(63,181,255,0.35);
+      transition:transform 0.1s,box-shadow 0.1s,background 0.1s;
+    }
+
+    button:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 22px rgba(63,181,255,0.45);
+    }
+
+    button:active{
+      transform:translateY(0);
+      box-shadow:0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid var(--accent-soft);
+      box-shadow:none;
+    }
+
+    .btn-secondary:hover{
+      background:var(--accent-soft);
+      box-shadow:none;
+    }
+
+    /* Toggle Devis / Facture */
+    .mode-toggle{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:10px;
+    }
+
+    .mode-label{
+      font-size:0.8rem;
+      color:var(--muted);
+    }
+
+    .mode-buttons{
+      display:flex;
+      gap:6px;
+    }
+
+    .mode-btn{
+      border-radius:999px;
+      padding:5px 10px;
+      font-size:0.75rem;
+      border:1px solid var(--border);
+      background:#151923;
+      color:var(--muted);
+      cursor:pointer;
+      box-shadow:none;
+    }
+
+    .mode-btn.active{
+      background:var(--accent);
+      color:#021018;
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px var(--accent-soft);
+    }
+
+    /* Devis (aperçu) – style "page blanche" */
+    .quote-wrapper{
+      background:white;
+      color:#111;
+      border-radius:0;
+      border:none;
+      padding:24px 22px 18px;
+      max-width:800px;
+      margin:0 auto;
+      box-shadow:none;
+      font-size:0.9rem;
+    }
+
+    .quote-header{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .company-block{
+      font-size:0.8rem;
+      line-height:1.4;
+    }
+
+    .company-name{
+      font-weight:700;
+      font-size:1rem;
+      text-transform:uppercase;
+    }
+
+    .company-legal{
+      font-weight:600;
+      font-size:0.82rem;
+      margin-top:2px;
+    }
+
+    .quote-meta{
+      text-align:right;
+      font-size:0.85rem;
+    }
+
+    .quote-meta strong{
+      display:inline-block;
+      min-width:80px;
+    }
+
+    .quote-section{ margin-bottom:10px; }
+
+    .quote-section-title{
+      font-weight:600;
+      margin-bottom:3px;
+    }
+
+    .quote-address{ white-space:pre-line; }
+
+    .quote-desc{
+      white-space:pre-line;
+      border:1px solid #ddd;
+      border-radius:8px;
+      padding:10px;
+      min-height:60px;
+      background:#fafafa;
+      font-size:0.88rem;
+    }
+
+    .amount-block{
+      margin-top:12px;
+      max-width:260px;
+    }
+
+    .amount-row{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:4px;
+      font-size:0.9rem;
+    }
+
+    .amount-row.total{
+      margin-top:4px;
+      padding-top:4px;
+      border-top:1px solid #ccc;
+      font-weight:700;
+      font-size:0.95rem;
+    }
+
+    /* ligne acompte si > 1000€ (devis uniquement) */
+    .notice-line{
+      margin-top:10px;
+      font-size:0.82rem;
+      color:#333;
+    }
+
+    .quote-footer{
+      margin-top:20px;
+      border-top:1px solid #ddd;
+      padding-top:8px;
+      font-size:0.75rem;
+      color:#555;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+
+    .quote-footer span{ display:block; }
+
+    @media (max-width:700px){
+      .quote-header{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .quote-meta{ text-align:left; }
+      .quote-wrapper{ padding:18px 14px 14px; }
+    }
+
+    /* Impression : ne garder QUE le devis */
+    @media print {
+      @page { margin-top: 0; margin-bottom: 0; }
+      *{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body{ margin: 0; padding: 0; background: white !important; }
+      .page{ max-width: none; padding: 0; margin: 0; }
+
+      h1, .form-card, .btn-row, .site-footer-logo { display: none !important; }
+
+      .layout{ display: block; }
+
+      .quote-card{
+        flex: 1 1 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      .quote-wrapper{
+        max-width: none;
+        margin: 0;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        padding: 20mm 15mm;
+      }
+    }
+
+    /* Date intervention plus compacte (mobile friendly) */
+    #interventionDateBlock input[type="date"]{
+      max-width: 220px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>
+      Générateur de devis / Factures<br>
+      <span class="h1-sub">MXDESIGN</span>
+    </h1>
+
+    <div class="layout">
+      <!-- FORMULAIRE -->
+      <div class="card form-card">
+
+        <!-- Switch devis / facture -->
+        <div class="mode-toggle">
+          <div class="mode-label">Type de document</div>
+          <div class="mode-buttons">
+            <button type="button" id="modeDevis" class="mode-btn active">Devis</button>
+            <button type="button" id="modeFacture" class="mode-btn">Facture</button>
+          </div>
+        </div>
+
+        <div class="section-title">Paramètres du devis / facture</div>
+
+        <div class="form-grid">
+          <!-- Date -->
+          <div>
+            <label for="dateDevis">Date</label>
+            <div class="inline-fields">
+              <input type="date" id="dateDevis" />
+              <button type="button" class="btn-secondary" id="btnToday">Aujourd'hui</button>
+            </div>
+          </div>
+
+          <!-- Date intervention (FACTURE UNIQUEMENT) -->
+          <div id="interventionDateBlock" style="display:none;">
+            <label for="dateIntervention">Date de l’intervention</label>
+            <input type="date" id="dateIntervention" />
+          </div>
+
+          <!-- Numéro -->
+          <div>
+            <label for="numSuffix">Numéro</label>
+            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:4px;">
+              Format : <code id="formatPattern">DEVIS-AAAA-XXXX</code> – tu saisis uniquement les 4 derniers chiffres.
+            </div>
+            <div class="inline-fields">
+              <input type="text" id="numSuffix" placeholder="" maxlength="4" />
+            </div>
+          </div>
+
+          <!-- Client -->
+          <div>
+            <label for="clientNom">Nom du client</label>
+            <input type="text" id="clientNom" placeholder="" />
+          </div>
+
+          <div>
+            <label for="clientAdresse">Adresse du client</label>
+            <textarea id="clientAdresse" placeholder=""></textarea>
+          </div>
+
+          <!-- Type de client -->
+          <div>
+            <label for="clientType">Type de client</label>
+            <select id="clientType">
+              <option value="pro" selected>Professionnel (B2B)</option>
+              <option value="particulier">Particulier (B2C)</option>
+            </select>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label for="intervention">Description de l'intervention</label>
+            <textarea id="intervention" placeholder=""></textarea>
+          </div>
+
+          <!-- Montant -->
+          <div>
+            <label for="montant">Montant (avant réduction) – en €</label>
+            <input type="number" id="montant" placeholder="0.00" step="0.01" min="0" />
+          </div>
+
+          <!-- Réduction : liste déroulante -->
+          <div>
+            <label for="discountSelect">Réduction</label>
+            <select id="discountSelect">
+              <option value="0">0 %</option>
+              <option value="5">5 %</option>
+              <option value="10">10 %</option>
+              <option value="15">15 %</option>
+              <option value="20">20 %</option>
+            </select>
+            <div style="margin-top:6px;font-size:0.8rem;color:var(--muted);">
+              0 % désactive la réduction.
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" id="btnGenerate">Mettre à jour</button>
+          <button type="button" class="btn-secondary" id="btnPrint">Imprimer / PDF</button>
+        </div>
+      </div>
+
+      <!-- APERÇU -->
+      <div class="quote-card">
+        <div class="quote-wrapper" id="quoteArea">
+          <!-- En-tête -->
+          <div class="quote-header">
+            <div class="company-block">
+              <div class="company-name">MXDESIGN</div>
+              <div class="company-legal">MICCOLI Xavier EI</div>
+              <div>15, Place du 8 mai 1945</div>
+              <div>38800 Le Pont-de-Claix</div>
+              <div>m.xav38@gmail.com</div>
+              <div>Tel : 06&#8203; 13&#8203; 96&#8203; 27&#8203; 30</div>
+              <div>SIRET : 989692587&#8203;00029</div>
+            </div>
+
+            <div class="quote-meta">
+              <div>
+                <strong id="labelNumero">Devis N° :</strong>
+                <span id="previewDevisNum">DEVIS-2026-0001</span>
+              </div>
+              <div>
+                <strong>Date :</strong>
+                <span id="previewDate">01/01/2026</span>
+              </div>
+
+              <!-- Date intervention (FACTURE UNIQUEMENT) -->
+              <div id="interventionDateRow" style="display:none;">
+                <strong>Date intervention :</strong>
+                <span id="previewInterventionDate">01/01/2026</span>
+              </div>
+
+              <!-- Validité 72h : devis uniquement -->
+              <div id="validityRow" style="display:none;">
+                <strong>Validité :</strong>
+                <span id="previewValidity">01/01/2026</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Client -->
+          <div class="quote-section">
+            <div class="quote-section-title">Client :</div>
+            <div id="previewClient">Nom du client</div>
+          </div>
+
+          <div class="quote-section">
+            <div class="quote-section-title">Adresse :</div>
+            <div class="quote-address" id="previewAdresse">Adresse du client</div>
+          </div>
+
+          <!-- Description -->
+          <div class="quote-section" style="margin-top:10px;">
+            <div class="quote-section-title">Description de l'intervention :</div>
+            <div class="quote-desc" id="previewIntervention">
+Intervention à décrire…
+            </div>
+          </div>
+
+          <!-- Montants -->
+          <div class="amount-block">
+            <div class="amount-row">
+              <span>Montant :</span>
+              <span id="previewMontant">0,00 €</span>
+            </div>
+            <div class="amount-row" id="previewReductionRow" style="display:none;">
+              <span>Réduction (<span id="previewReductionPercent">0</span> %) :</span>
+              <span id="previewReductionAmount">-0,00 €</span>
+            </div>
+            <div class="amount-row total">
+              <span>Total à payer :</span>
+              <span id="previewTotal">0,00 €</span>
+            </div>
+
+            <!-- Acompte si > 1000€ : devis uniquement -->
+            <div id="depositNotice" class="notice-line" style="display:none;">
+              Tout devis accepté implique le versement d’un acompte de 30&nbsp;%.
+            </div>
+          </div>
+
+          <!-- Pied de page devis / facture -->
+          <div class="quote-footer">
+            <span>TVA non applicable, article 293 B du CGI</span>
+            <span>Titulaire : MICCOLI Xavier</span>
+            <span>RIB : FR76&#8203; 1680&#8203; 7001&#8203; 3231&#8203; 9415&#8203; 0919&#8203; 893</span>
+            <span>BIC : CCBP&#8203;FRPP&#8203;GRE</span>
+
+            <!-- Conditions DEVIS -->
+            <span id="termsDevis" style="margin-top:6px; display:none;"></span>
+
+            <!-- Conditions FACTURE -->
+            <span id="termsFacture" style="margin-top:6px; display:none;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Mode courant : "devis" ou "facture"
+    let currentMode = "devis";
+
+    function formatDateFRFromISO(isoStr){
+      if(!isoStr) return "";
+      const [y,m,d] = isoStr.split("-");
+      return d + "/" + m + "/" + y;
+    }
+
+    function todayISO(){
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      return y + "-" + m + "-" + day;
+    }
+
+    function dateFromISO(isoStr){
+      const [y,m,d] = isoStr.split("-").map(Number);
+      return new Date(y, (m-1), d, 12, 0, 0);
+    }
+
+    function formatDateFRFromDate(dt){
+      const dd = String(dt.getDate()).padStart(2,"0");
+      const mm = String(dt.getMonth()+1).padStart(2,"0");
+      const yy = dt.getFullYear();
+      return `${dd}/${mm}/${yy}`;
+    }
+
+    // Références DOM
+    const dateInput        = document.getElementById("dateDevis");
+    const btnToday         = document.getElementById("btnToday");
+    const numSuffixInput   = document.getElementById("numSuffix");
+    const clientInput      = document.getElementById("clientNom");
+    const adresseInput     = document.getElementById("clientAdresse");
+    const clientTypeSelect = document.getElementById("clientType");
+    const interInput       = document.getElementById("intervention");
+    const montantInput     = document.getElementById("montant");
+
+    const discountSelect   = document.getElementById("discountSelect");
+
+    // Date intervention facture
+    const interventionDateBlock = document.getElementById("interventionDateBlock");
+    const interventionDateInput = document.getElementById("dateIntervention");
+
+    const previewDate          = document.getElementById("previewDate");
+    const previewDevisNum      = document.getElementById("previewDevisNum");
+    const previewClient        = document.getElementById("previewClient");
+    const previewAdresse       = document.getElementById("previewAdresse");
+    const previewIntervention  = document.getElementById("previewIntervention");
+    const previewMontant       = document.getElementById("previewMontant");
+    const previewReductionRow  = document.getElementById("previewReductionRow");
+    const previewReductionPct  = document.getElementById("previewReductionPercent");
+    const previewReductionAmt  = document.getElementById("previewReductionAmount");
+    const previewTotal         = document.getElementById("previewTotal");
+
+    const btnGenerate = document.getElementById("btnGenerate");
+    const btnPrint    = document.getElementById("btnPrint");
+
+    const modeDevisBtn    = document.getElementById("modeDevis");
+    const modeFactureBtn  = document.getElementById("modeFacture");
+    const formatPattern   = document.getElementById("formatPattern");
+    const labelNumero     = document.getElementById("labelNumero");
+
+    const validityRow     = document.getElementById("validityRow");
+    const previewValidity = document.getElementById("previewValidity");
+    const depositNotice   = document.getElementById("depositNotice");
+
+    // Aperçu date intervention facture
+    const interventionDateRow = document.getElementById("interventionDateRow");
+    const previewInterventionDate = document.getElementById("previewInterventionDate");
+
+    // Conditions
+    const termsDevis   = document.getElementById("termsDevis");
+    const termsFacture = document.getElementById("termsFacture");
+
+    // Init date du jour
+    dateInput.value = todayISO();
+    previewDate.textContent = formatDateFRFromISO(dateInput.value);
+
+    btnToday.addEventListener("click", () => {
+      dateInput.value = todayISO();
+      previewDate.textContent = formatDateFRFromISO(dateInput.value);
+      updatePreview();
+    });
+
+    function setMode(mode){
+      currentMode = mode;
+
+      if(mode === "facture"){
+        modeDevisBtn.classList.remove("active");
+        modeFactureBtn.classList.add("active");
+        formatPattern.textContent = "FACTURE-AAAA-XXXX";
+        labelNumero.textContent = "Facture N° :";
+
+        // Afficher le champ date intervention (form) + ligne aperçu
+        interventionDateBlock.style.display = "block";
+        interventionDateRow.style.display   = "block";
+
+        // Conditions
+        termsDevis.style.display = "none";
+        termsFacture.style.display = "block";
+      } else {
+        modeDevisBtn.classList.add("active");
+        modeFactureBtn.classList.remove("active");
+        formatPattern.textContent = "DEVIS-AAAA-XXXX";
+        labelNumero.textContent = "Devis N° :";
+
+        interventionDateBlock.style.display = "none";
+        interventionDateRow.style.display   = "none";
+
+        // Conditions
+        termsFacture.style.display = "none";
+        termsDevis.style.display = "block";
+      }
+
+      updatePreview();
+    }
+
+    modeDevisBtn.addEventListener("click", () => setMode("devis"));
+    modeFactureBtn.addEventListener("click", () => setMode("facture"));
+
+    function updatePreview(){
+      const dateISO = dateInput.value || todayISO();
+      const dateFR  = formatDateFRFromISO(dateISO);
+
+      // année = celle de la date choisie (pas celle du PC)
+      const year = (dateISO.split("-")[0]) || new Date().getFullYear();
+
+      previewDate.textContent = dateFR;
+
+      const prefix = currentMode === "facture" ? "FACTURE" : "DEVIS";
+
+      let suffix = (numSuffixInput.value || "1").replace(/\D/g,"");
+      suffix = suffix.slice(-4);
+      suffix = suffix.padStart(4,"0");
+      previewDevisNum.textContent = `${prefix}-${year}-${suffix}`;
+
+      const clientNom = clientInput.value.trim() || "Nom du client";
+      previewClient.textContent = clientNom;
+
+      const adresse = adresseInput.value.trim() || "Adresse du client";
+      previewAdresse.textContent = adresse;
+
+      const inter = interInput.value.trim() || "Intervention à décrire…";
+      previewIntervention.textContent = inter;
+
+      let montant = parseFloat(String(montantInput.value).replace(",","."));
+      if(isNaN(montant)) montant = 0;
+
+      const discountPercent = parseFloat(discountSelect.value || "0") || 0;
+      let discountAmount = 0;
+      let total = montant;
+
+      if(discountPercent > 0){
+        discountAmount = montant * (discountPercent/100);
+        total = montant - discountAmount;
+      }
+
+      const fmt = (v) => v.toLocaleString("fr-FR", {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }) + " €";
+
+      previewMontant.textContent = fmt(montant);
+
+      if(discountPercent > 0 && discountAmount > 0){
+        previewReductionRow.style.display = "flex";
+        previewReductionPct.textContent   = discountPercent.toLocaleString("fr-FR");
+        previewReductionAmt.textContent   = "-" + fmt(discountAmount).replace(" €","") + " €";
+      }else{
+        previewReductionRow.style.display = "none";
+      }
+
+      previewTotal.textContent = fmt(total);
+
+      // Validité 72h : seulement en mode devis
+      if(currentMode === "devis"){
+        validityRow.style.display = "block";
+        const base = dateFromISO(dateISO);
+        base.setDate(base.getDate() + 3);
+        previewValidity.textContent = formatDateFRFromDate(base);
+      }else{
+        validityRow.style.display = "none";
+      }
+
+      // Acompte si > 1000€ : seulement devis + total > 1000
+      if(currentMode === "devis" && total > 1000){
+        depositNotice.style.display = "block";
+      }else{
+        depositNotice.style.display = "none";
+      }
+
+      // Date intervention : seulement facture
+      if(currentMode === "facture"){
+        const intISO = interventionDateInput.value || "";
+        previewInterventionDate.textContent = intISO ? formatDateFRFromISO(intISO) : "—";
+      }
+
+      // ---- Conditions : 40€ uniquement pour PRO (B2B)
+      const isPro = (clientTypeSelect?.value || "pro") === "pro";
+
+      if(isPro){
+        termsDevis.innerHTML = `
+          Conditions de règlement :
+          Le règlement devra intervenir sous 14 jours à compter de la date de facturation. Passé ce délai,
+          une pénalité de retard sera appliquée conformément à l’article L441-10 du Code de commerce, au taux d’intérêt légal en vigueur.
+          Une indemnité forfaitaire pour frais de recouvrement de 40 € sera également due (décret n°2012-1115 du 2 octobre 2012).
+        `;
+
+        termsFacture.innerHTML = `
+          Mr MICCOLI Xavier vous a envoyé cette facture le <span id="invoiceSentDate">—</span>.
+          Celle-ci doit être réglée sous 14 jours à compter de cette date. Passé ce délai, une pénalité de retard sera appliquée conformément à l’article
+          L441-10 du Code de commerce, au taux d’intérêt légal en vigueur.
+          Une indemnité forfaitaire pour frais de recouvrement de 40 € sera également due (décret n°2012-1115 du 2 octobre 2012).
+        `;
+      }else{
+        termsDevis.innerHTML = `
+          Conditions de règlement :
+          Le règlement devra intervenir sous 14 jours à compter de la date de facturation. Passé ce délai,
+          une pénalité de retard sera appliquée conformément à l’article L441-10 du Code de commerce, au taux d’intérêt légal en vigueur.
+        `;
+
+        termsFacture.innerHTML = `
+          Mr MICCOLI Xavier vous a envoyé cette facture le <span id="invoiceSentDate">—</span>.
+          Celle-ci doit être réglée sous 14 jours à compter de cette date. Passé ce délai, une pénalité de retard sera appliquée conformément à l’article
+          L441-10 du Code de commerce, au taux d’intérêt légal en vigueur.
+        `;
+      }
+
+      // remettre la date (car on réécrit le HTML au-dessus)
+      const sent = document.getElementById("invoiceSentDate");
+      if(sent) sent.textContent = dateFR || "—";
+    }
+
+    btnGenerate.addEventListener("click", updatePreview);
+
+    dateInput.addEventListener("change", updatePreview);
+    numSuffixInput.addEventListener("input", updatePreview);
+    clientInput.addEventListener("input", updatePreview);
+    adresseInput.addEventListener("input", updatePreview);
+    clientTypeSelect.addEventListener("change", updatePreview);
+    interInput.addEventListener("input", updatePreview);
+    montantInput.addEventListener("input", updatePreview);
+    discountSelect.addEventListener("change", updatePreview);
+    interventionDateInput.addEventListener("change", updatePreview);
+
+    btnPrint.addEventListener("click", () => {
+      updatePreview();
+      window.print();
+    });
+
+    // Premier rendu
+    setMode("devis");
+    updatePreview();
+  </script>
+
+  <div class="site-footer-logo">
+    <img src="LOGOS/logo1.png" class="site-logo-img" alt="Logo">
+  </div>
+</body>
+</html>
