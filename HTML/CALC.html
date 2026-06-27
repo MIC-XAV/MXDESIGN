@@ -271,7 +271,7 @@
 <div class="app-header">
     <h1>⚡ Camp-Culateur ⚡</h1>
     <p>Calculateur d'autonomie camping-car</p>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Mode sombre</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
 </div>
 
 <!-- BATTERIE -->
@@ -442,7 +442,7 @@
     function toggleTheme() {
         lightMode = !lightMode;
         document.body.classList.toggle('light-mode', lightMode);
-        document.getElementById('themeBtn').textContent = lightMode ? '🌙 Mode sombre' : '☀️ Mode clair';
+        document.getElementById('themeBtn').textContent = lightMode ? '☀️' : '🌙';
     }
 
     // ===== BATTERIE =====
