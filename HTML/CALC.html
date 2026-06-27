@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>⚡ Camp-Culateur ⚡</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        /* ===== THÈMES ===== */
+        :root {
+            --bg-main: #1a1f2e; --bg-card: #242938; --bg-card2: #2d3347;
+            --accent-blue: #4a9eff; --accent-green: #2ecc71; --accent-red: #e74c3c;
+            --accent-orange: #f39c12; --accent-yellow: #f1c40f;
+            --text-primary: #e8eaf0; --text-secondary: #9aa0b4;
+            --border: #3a4055; --shadow: rgba(0,0,0,0.4);
+        }
+        body.light-mode {
+            --bg-main: #f0f2f8; --bg-card: #ffffff; --bg-card2: #e8ecf5;
+            --accent-blue: #2578d8; --accent-green: #1fa85a; --accent-red: #c0392b;
+            --accent-orange: #d68910; --accent-yellow: #c8a400;
+            --text-primary: #1a1f2e; --text-secondary: #5a6380;
+            --border: #ccd0df; --shadow: rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: var(--bg-main); color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh; padding: 16px; padding-bottom: 220px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ===== HEADER ===== */
+        .app-header { text-align: center; padding: 16px 0 20px; position: relative; }
+        .app-header h1 {
+            font-size: 1.8rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), #a78bfa);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .app-header p { color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px; }
+
+        /* Bouton jour/nuit */
+        .theme-toggle {
+            position: absolute; top: 16px; right: 0;
+            background: var(--bg-card2); border: 1px solid var(--border);
+            border-radius: 20px; padding: 6px 12px; cursor: pointer;
+            font-size: 0.85rem; color: var(--text-primary);
+            display: flex; align-items: center; gap: 6px;
+            transition: all 0.3s;
+        }
+        .theme-toggle:hover { border-color: var(--accent-blue); }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--bg-card); border-radius: 16px; padding: 20px;
+            margin-bottom: 16px; border: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+        .card-title {
+            font-size: 1rem; font-weight: 600; color: var(--accent-blue);
+            margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+        }
+        .divider { height: 1px; background: var(--border); margin: 16px 0; }
+        .info-chip {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.3);
+            border-radius: 20px; padding: 4px 10px; font-size: 0.75rem; color: var(--accent-blue);
+        }
+
+        /* ===== BATTERIE ===== */
+        .battery-type-row { display: flex; gap: 10px; margin-bottom: 14px; }
+        .bat-type-btn {
+            flex: 1; padding: 10px 6px; border-radius: 10px;
+            border: 2px solid var(--border); background: var(--bg-card2);
+            color: var(--text-secondary); font-size: 0.82rem; font-weight: 600;
+            cursor: pointer; text-align: center; transition: all 0.2s; line-height: 1.4;
+        }
+        .bat-type-btn.active-lithium {
+            border-color: var(--accent-green); color: var(--accent-green);
+            background: rgba(46,204,113,0.1);
+        }
+        .bat-type-btn.active-lead {
+            border-color: var(--accent-orange); color: var(--accent-orange);
+            background: rgba(243,156,18,0.1);
+        }
+        .battery-info {
+            display: flex; align-items: center; gap: 16px;
+            background: var(--bg-card2); border-radius: 12px; padding: 14px 16px;
+        }
+        .battery-icon-wrap { font-size: 2.5rem; }
+        .battery-details h3 { font-size: 1rem; font-weight: 600; margin-bottom: 2px; }
+        .battery-details p { font-size: 0.8rem; color: var(--text-secondary); }
+        .battery-specs { margin-left: auto; text-align: right; }
+        .battery-specs .spec-val { font-size: 1.4rem; font-weight: 700; color: var(--accent-green); }
+        .battery-specs .spec-label { font-size: 0.72rem; color: var(--text-secondary); }
+        .ah-input-row {
+            display: flex; align-items: center; gap: 10px; margin-top: 12px;
+        }
+        .ah-input-row label { font-size: 0.85rem; color: var(--text-secondary); flex: 1; }
+        .ah-input-row input {
+            width: 90px; background: var(--bg-card2); border: 1px solid var(--border);
+            border-radius: 8px; color: var(--text-primary); font-size: 1rem;
+            font-weight: 700; padding: 8px 10px; text-align: center; outline: none;
+        }
+        .ah-input-row input:focus { border-color: var(--accent-blue); }
+        .ah-input-row span { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* ===== SOLAIRE ===== */
+        .solar-grid { display: grid; gap: 12px; }
+        .solar-row { display: flex; align-items: center; gap: 12px; }
+        .solar-row label { font-size: 0.85rem; color: var(--text-secondary); min-width: 130px; }
+        .solar-toggle-row {
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--bg-card2); border-radius: 12px; padding: 12px 16px;
+        }
+        .solar-toggle-label { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .solar-info-box {
+            background: var(--bg-card2); border-radius: 10px; padding: 10px 14px;
+            font-size: 0.8rem; color: var(--text-secondary); border-left: 3px solid var(--accent-yellow);
+        }
+        .solar-info-box strong { color: var(--accent-yellow); }
+
+        /* ===== SELECTS ===== */
+        select {
+            background: var(--bg-card2); border: 1px solid var(--border); border-radius: 10px;
+            color: var(--text-primary); padding: 10px 32px 10px 12px; font-size: 0.9rem;
+            outline: none; width: 100%; appearance: none; -webkit-appearance: none;
+        }
+        select:focus { border-color: var(--accent-blue); }
+        .select-wrapper { position: relative; flex: 1; }
+        .select-wrapper::after {
+            content: '▾'; position: absolute; right: 12px; top: 50%;
+            transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;
+        }
+
+        /* ===== TOGGLE ===== */
+        .toggle-switch { position: relative; width: 52px; height: 28px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background: #3a4055; border-radius: 28px; transition: 0.3s;
+        }
+        .toggle-slider::before {
+            content: ''; position: absolute; width: 22px; height: 22px;
+            left: 3px; bottom: 3px; background: #fff; border-radius: 50%;
+            transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        input:checked + .toggle-slider { background: var(--accent-green); }
+        input:checked + .toggle-slider::before { transform: translateX(24px); }
+
+        /* ===== SLIDER ===== */
+        .time-slider-wrap label {
+            font-size: 0.82rem; color: var(--text-secondary);
+            display: flex; justify-content: space-between; margin-bottom: 8px;
+        }
+        input[type="range"] { width: 100%; accent-color: var(--accent-yellow); }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+        /* ===== CONSOMMATEURS ===== */
+        .consumer-item {
+            background: var(--bg-card2); border-radius: 12px; padding: 12px 14px;
+            display: flex; align-items: center; gap: 10px;
+            border: 1px solid var(--border); margin-bottom: 10px;
+            animation: slideIn 0.25s ease; flex-wrap: wrap;
+        }
+        @keyframes slideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+        .consumer-emoji { font-size: 1.4rem; min-width: 30px; text-align: center; }
+        .consumer-info { flex: 1; min-width: 80px; }
+        .consumer-name { font-size: 0.88rem; font-weight: 500; }
+        .consumer-watts { font-size: 0.75rem; color: var(--text-secondary); }
+        .consumer-delete {
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 1.1rem; cursor: pointer; padding: 4px; border-radius: 6px;
+        }
+        .custom-w-wrap {
+            display: flex; align-items: center; gap: 6px;
+            width: 100%; padding-top: 8px; padding-left: 40px;
+        }
+        .custom-w-wrap label { font-size: 0.8rem; color: var(--text-secondary); }
+        .custom-w-input {
+            width: 80px; background: var(--bg-main); border: 1px solid var(--accent-orange);
+            border-radius: 8px; color: var(--text-primary); font-size: 0.9rem;
+            padding: 6px 8px; text-align: center; outline: none;
+        }
+        .custom-w-input:focus { border-color: var(--accent-yellow); }
+        .add-row { display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+        .btn-add {
+            background: var(--accent-blue); color: white; border: none;
+            border-radius: 10px; padding: 11px 18px; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; white-space: nowrap;
+        }
+        .empty-state { text-align: center; color: var(--text-secondary); font-size: 0.85rem; padding: 12px; }
+
+        /* ===== RÉSULTATS FIXÉS EN BAS ===== */
+        .results-bar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            border-top: 2px solid var(--border);
+            z-index: 100; padding: 12px 16px 24px;
+            transition: all 0.4s ease;
+        }
+        .results-bar.status-good {
+            background: linear-gradient(180deg, #1a2e22ee, #1e3428ff);
+            border-color: var(--accent-green);
+            box-shadow: 0 -4px 30px rgba(46,204,113,0.25);
+        }
+        .results-bar.status-warn {
+            background: linear-gradient(180deg, #2e2a1aee, #342e1eff);
+            border-color: var(--accent-orange);
+            box-shadow: 0 -4px 30px rgba(243,156,18,0.25);
+        }
+        .results-bar.status-bad {
+            background: linear-gradient(180deg, #2e1a1aee, #341e1eff);
+            border-color: var(--accent-red);
+            box-shadow: 0 -4px 30px rgba(231,76,60,0.25);
+        }
+        /* Surcharge couleurs en mode clair */
+        body.light-mode .results-bar.status-good {
+            background: linear-gradient(180deg, #d4f5e2ee, #e8f8f0ff);
+        }
+        body.light-mode .results-bar.status-warn {
+            background: linear-gradient(180deg, #fef3d0ee, #fdf6e0ff);
+        }
+        body.light-mode .results-bar.status-bad {
+            background: linear-gradient(180deg, #fde8e8ee, #fdf0f0ff);
+        }
+        .results-top-row {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+        }
+        .results-status-text { font-size: 0.9rem; font-weight: 700; }
+        .status-good .results-status-text { color: var(--accent-green); }
+        .status-warn .results-status-text { color: var(--accent-orange); }
+        .status-bad  .results-status-text { color: var(--accent-red); }
+        .results-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px;
+        }
+        .result-block {
+            background: rgba(0,0,0,0.15); border-radius: 10px; padding: 8px 6px; text-align: center;
+        }
+        body.light-mode .result-block { background: rgba(0,0,0,0.05); }
+        .result-block .val { font-size: 1rem; font-weight: 700; line-height: 1; margin-bottom: 3px; }
+        .result-block .lbl { font-size: 0.62rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.3px; }
+        .status-good .result-block .val { color: var(--accent-green); }
+        .status-warn .result-block .val { color: var(--accent-orange); }
+        .status-bad  .result-block .val { color: var(--accent-red); }
+        .battery-bar-wrap {
+            background: rgba(0,0,0,0.2); border-radius: 20px; height: 8px; overflow: hidden; margin-bottom: 8px;
+        }
+        .battery-bar-fill { height: 100%; border-radius: 20px; transition: width 0.5s ease, background 0.4s; }
+        .week-row {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; padding: 6px 10px;
+            background: rgba(0,0,0,0.12); border-radius: 10px;
+            font-size: 0.78rem; text-align: center;
+        }
+        body.light-mode .week-row { background: rgba(0,0,0,0.05); }
+        .week-row .week-text { color: var(--text-secondary); }
+        .week-verdict { font-weight: 700; font-size: 0.82rem; }
+        .week-good { color: var(--accent-green); }
+        .week-warn { color: var(--accent-orange); }
+        .week-bad  { color: var(--accent-red); }
+
+        /* ===== FOOTER ===== */
+        .site-footer-logo { width: 100%; text-align: center; padding: 3px 0; margin-top: 3px; }
+        .site-logo-img { width: 120px; opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+    <h1>⚡ Camp-Culateur ⚡</h1>
+    <p>Calculateur d'autonomie camping-car</p>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Mode sombre</button>
+</div>
+
+<!-- BATTERIE -->
+<div class="card">
+    <div class="card-title"><span>🔋</span> Batterie</div>
+
+    <div class="battery-type-row">
+        <button class="bat-type-btn active-lithium" id="btnLithium" onclick="setBatteryType('lithium')">
+            ⚡ Lithium<br><small>LiFePO4</small><br><small style="opacity:0.7">80% utile</small>
+        </button>
+        <button class="bat-type-btn" id="btnLead" onclick="setBatteryType('lead')">
+            🔩 Plomb<br><small>AGM / GEL</small><br><small style="opacity:0.7">50% utile</small>
+        </button>
+    </div>
+
+    <div class="battery-info">
+        <div class="battery-icon-wrap" id="batIcon">🔋</div>
+        <div class="battery-details">
+            <h3 id="batName">ECO-Worthy</h3>
+            <p id="batTypeTxt">Lithium LiFePO4</p>
+            <p>12V · <span id="batAhDisplay">280</span> Ah</p>
+        </div>
+        <div class="battery-specs">
+            <div class="spec-val" id="batAhSpec">280</div>
+            <div class="spec-label">Ah totaux</div>
+            <div style="margin-top:4px;"><span class="info-chip" id="batWhChip">⚡ 3360 Wh</span></div>
+        </div>
+    </div>
+
+    <div class="ah-input-row">
+        <label>Capacité personnalisée</label>
+        <input type="number" id="batAhInput" value="280" min="10" max="5000" oninput="calculate()">
+        <span>Ah</span>
+    </div>
+
+    <div class="divider"></div>
+    <div id="batUsableInfo" style="font-size:0.8rem; color:var(--text-secondary);">
+        ℹ️ Capacité utile à <strong style="color:var(--text-primary);">80%</strong> →
+        <strong style="color:var(--accent-green);">224 Ah · 2688 Wh</strong>
+    </div>
+</div>
+
+<!-- SOLAIRE -->
+<div class="card">
+    <div class="card-title"><span>☀️</span> Panneaux Solaires</div>
+    <div class="solar-grid">
+        <div class="solar-row">
+            <label>Puissance / panneau</label>
+            <div class="select-wrapper" style="max-width:160px;">
+                <select id="solarPower" onchange="calculate()">
+                    <option value="100">100 W</option>
+                    <option value="150">150 W</option>
+                    <option value="200" selected>200 W</option>
+                    <option value="250">250 W</option>
+                    <option value="300">300 W</option>
+                    <option value="400">400 W</option>
+                </select>
+            </div>
+        </div>
+        <div class="solar-row">
+            <label>Nombre de panneaux</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <button onclick="changePanel(-1)" style="background:var(--bg-card2);border:1px solid var(--border);color:var(--text-primary);border-radius:8px;width:38px;height:38px;font-size:1.2rem;cursor:pointer;">−</button>
+                <span id="panelCount" style="font-size:1.2rem;font-weight:700;min-width:24px;text-align:center;">2</span>
+                <button onclick="changePanel(1)" style="background:var(--bg-card2);border:1px solid var(--border);color:var(--text-primary);border-radius:8px;width:38px;height:38px;font-size:1.2rem;cursor:pointer;">+</button>
+            </div>
+        </div>
+        <div class="solar-toggle-row">
+            <div class="solar-toggle-label"><span>☀️</span><span>Activer la charge solaire</span></div>
+            <label class="toggle-switch">
+                <input type="checkbox" id="solarEnabled" checked onchange="calculate()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="time-slider-wrap">
+            <label>
+                <span>🕐 Heure de simulation</span>
+                <span id="timeLabel" style="color:var(--accent-yellow);">12:00</span>
+            </label>
+            <input type="range" id="timeSlider" min="0" max="23" value="12" oninput="updateTime(); calculate();">
+        </div>
+        <div class="solar-info-box">
+            ⚡ Efficacité mesurée : <strong>70%</strong> à pleine puissance (12h00).
+            Production calculée selon courbe solaire journalière.
+        </div>
+    </div>
+</div>
+
+<!-- CONSOMMATEURS -->
+<div class="card">
+    <div class="card-title"><span>🔌</span> Appareils</div>
+    <div id="consumersList">
+        <div class="empty-state" id="emptyState">Vas-y sélectionne un truc :</div>
+    </div>
+    <div class="add-row">
+        <div class="select-wrapper">
+            <select id="deviceSelect">
+                <option value="">- Choisir un appareil -</option>
+                <option value="plafonnier_led">💡 Plafonnier LED - 4W</option>
+                <option value="plafonnier_navette">🔦 Plafonnier Navette (×2) - 10W</option>
+                <option value="chargeur_usb">📱 Chargeur USB - 15W</option>
+                <option value="refrigerateur">❄️ Réfrigérateur - 40W moy.</option>
+                <option value="chargeur_pc">💻 Chargeur PC portable - 100W</option>
+                <option value="divers">🔧 Divers (personnalisé)</option>
+            </select>
+        </div>
+        <button class="btn-add" onclick="addDevice()">＋ Ajouter</button>
+    </div>
+</div>
+
+<!-- RÉSULTATS FIXÉS EN BAS -->
+<div class="results-bar status-good" id="resultsBar">
+    <div class="results-top-row">
+        <span id="statusIcon">✅</span>
+        <span class="results-status-text" id="statusText">Autonomie suffisante</span>
+        <span id="statusEmoji" style="font-size:1.2rem;">😎</span>
+    </div>
+    <div class="results-grid">
+        <div class="result-block">
+            <div class="val" id="resConso">0 W</div>
+            <div class="lbl">Conso.</div>
+        </div>
+        <div class="result-block">
+            <div class="val" id="resSolaire">0 W</div>
+            <div class="lbl">Solaire</div>
+        </div>
+        <div class="result-block">
+            <div class="val" id="resBilan">0 W</div>
+            <div class="lbl">Bilan</div>
+        </div>
+        <div class="result-block">
+            <div class="val" id="resAutonomie">∞</div>
+            <div class="lbl">Autonomie</div>
+        </div>
+    </div>
+    <div class="battery-bar-wrap">
+        <div class="battery-bar-fill" id="batteryBar" style="width:80%; background:var(--accent-green);"></div>
+    </div>
+    <div class="week-row">
+        <span id="weekIcon">📅</span>
+        <span class="week-text">Simulation 7 jours :</span>
+        <span class="week-verdict week-good" id="weekVerdict">-</span>
+    </div>
+</div>
+
+<div class="site-footer-logo">
+    <img src="watermark.png" class="site-logo-img" alt="Logo">
+</div>
+
+<script>
+    // ===== DONNÉES APPAREILS =====
+    const DEVICES = {
+        plafonnier_led:     { name: "Plafonnier LED",           emoji: "💡", watts: 4,   note: "4W",        custom: false },
+        plafonnier_navette: { name: "Plafonnier Navette (×2)",  emoji: "🔦", watts: 10,  note: "2×5W",      custom: false },
+        chargeur_usb:       { name: "Chargeur USB",             emoji: "📱", watts: 15,  note: "15W",       custom: false },
+        refrigerateur:      { name: "Réfrigérateur",            emoji: "❄️", watts: 40,  note: "~40W moy.", custom: false },
+        chargeur_pc:        { name: "Chargeur PC portable",     emoji: "💻", watts: 100, note: "100W",      custom: false },
+        divers:             { name: "Divers",                   emoji: "🔧", watts: 50,  note: "personnalisé", custom: true },
+    };
+
+    let consumers  = [];
+    let panelCount = 2;
+    let idCounter  = 0;
+    let batteryType = 'lithium';
+    let lightMode  = false;
+
+    // ===== THÈME =====
+    function toggleTheme() {
+        lightMode = !lightMode;
+        document.body.classList.toggle('light-mode', lightMode);
+        document.getElementById('themeBtn').textContent = lightMode ? '🌙 Mode sombre' : '☀️ Mode clair';
+    }
+
+    // ===== BATTERIE =====
+    function setBatteryType(type) {
+        batteryType = type;
+        const btnL = document.getElementById('btnLithium');
+        const btnP = document.getElementById('btnLead');
+        if (type === 'lithium') {
+            btnL.className = 'bat-type-btn active-lithium';
+            btnP.className = 'bat-type-btn';
+            document.getElementById('batName').textContent    = 'ECO-Worthy';
+            document.getElementById('batTypeTxt').textContent = 'Lithium LiFePO4';
+            document.getElementById('batIcon').textContent    = '🔋';
+        } else {
+            btnL.className = 'bat-type-btn';
+            btnP.className = 'bat-type-btn active-lead';
+            document.getElementById('batName').textContent    = 'Batterie Plomb';
+            document.getElementById('batTypeTxt').textContent = 'AGM / GEL / Standard';
+            document.getElementById('batIcon').textContent    = '🔩';
+        }
+        calculate();
+    }
+
+    // ===== PANNEAUX =====
+    function changePanel(delta) {
+        panelCount = Math.max(1, Math.min(4, panelCount + delta));
+        document.getElementById('panelCount').textContent = panelCount;
+        calculate();
+    }
+
+    // ===== HEURE =====
+    function updateTime() {
+        const h = parseInt(document.getElementById('timeSlider').value);
+        const labels = {
+            0:"Nuit",1:"Nuit",2:"Nuit",3:"Nuit",4:"Nuit",5:"Nuit",6:"Aube",
+            7:"Matin",8:"Matin",9:"Matinée",10:"Matinée",11:"Matinée",
+            12:"Midi",13:"Après-midi",14:"Après-midi",15:"Après-midi",
+            16:"Soir",17:"Soir",18:"Soir",19:"Crépuscule",20:"Nuit",
+            21:"Nuit",22:"Nuit",23:"Nuit"
+        };
+        document.getElementById('timeLabel').textContent =
+            `${h.toString().padStart(2,'0')}:00 - ${labels[h]}`;
+    }
+
+    // ===== SOLAIRE =====
+    function solarEfficiency(hour) {
+        if (hour < 7 || hour > 19) return 0;
+        return Math.exp(-0.5 * Math.pow((hour - 13) / 6, 2)) * 0.70;
+    }
+
+    function dailySolarWh(solarPower, panels) {
+        let total = 0;
+        for (let h = 0; h <= 23; h++) total += solarPower * panels * solarEfficiency(h);
+        return total;
+    }
+
+    // ===== CONSOMMATEURS =====
+    function addDevice() {
+        const sel = document.getElementById('deviceSelect');
+        const key = sel.value;
+        if (!key) return;
+        const d = DEVICES[key];
+        consumers.push({
+            id: ++idCounter,
+            key,
+            enabled: true,
+            customWatts: d.custom ? d.watts : null
+        });
+        renderConsumers();
+        sel.value = '';
+        calculate();
+    }
+
+    function removeDevice(id) {
+        consumers = consumers.filter(c => c.id !== id);
+        renderConsumers();
+        calculate();
+    }
+
+    function toggleDevice(id, val) {
+        const c = consumers.find(c => c.id === id);
+        if (c) { c.enabled = val; calculate(); }
+    }
+
+    function updateCustomWatts(id, val) {
+        const c = consumers.find(c => c.id === id);
+        if (c) {
+            c.customWatts = Math.max(1, parseInt(val) || 1);
+            // Mettre à jour le badge watts affiché
+            const badge = document.getElementById('badge-' + id);
+            if (badge) badge.textContent = c.customWatts + 'W';
+            calculate();
+        }
+    }
+
+    function renderConsumers() {
+        const list  = document.getElementById('consumersList');
+        const empty = document.getElementById('emptyState');
+        Array.from(list.children).forEach(el => { if (el.id !== 'emptyState') el.remove(); });
+
+        if (consumers.length === 0) {
+            empty.style.display = 'block';
+        } else {
+            empty.style.display = 'none';
+            consumers.forEach(c => {
+                const d   = DEVICES[c.key];
+                const w   = d.custom ? c.customWatts : d.watts;
+                const el  = document.createElement('div');
+                el.className = 'consumer-item';
+                el.innerHTML = `
+                    <label class="toggle-switch" style="margin-right:2px;">
+                        <input type="checkbox" ${c.enabled ? 'checked' : ''} onchange="toggleDevice(${c.id}, this.checked)">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <div class="consumer-emoji">${d.emoji}</div>
+                    <div class="consumer-info">
+                        <div class="consumer-name">${d.name}</div>
+                        <div class="consumer-watts" id="badge-${c.id}">${w}W</div>
+                    </div>
+                    ${d.custom ? `
+                    <input type="number" class="custom-w-input" value="${c.customWatts}"
+                        min="1" max="10000" placeholder="W"
+                        oninput="updateCustomWatts(${c.id}, this.value)"
+                        style="width:70px;">
+                    <span style="font-size:0.8rem;color:var(--text-secondary);">W</span>
+                    ` : ''}
+                    <button class="consumer-delete" onclick="removeDevice(${c.id})">🗑️</button>
+                `;
+                list.appendChild(el);
+            });
+        }
+    }
+
+    // ===== CALCUL PRINCIPAL =====
+    function calculate() {
+        const ah      = Math.max(10, parseFloat(document.getElementById('batAhInput').value) || 280);
+        const usePct  = batteryType === 'lithium' ? 0.80 : 0.50;
+        const usable  = ah * usePct;
+        const wh      = ah * 12;
+        const whUsable= usable * 12;
+
+        // Mise à jour affichage batterie
+        document.getElementById('batAhDisplay').textContent = ah;
+        document.getElementById('batAhSpec').textContent    = ah;
+        document.getElementById('batWhChip').textContent    = '⚡ ' + Math.round(wh) + ' Wh';
+        document.getElementById('batUsableInfo').innerHTML  =
+            `ℹ️ Capacité utile à <strong style="color:var(--text-primary);">${Math.round(usePct*100)}%</strong> →
+            <strong style="color:var(--accent-green);">${Math.round(usable)} Ah · ${Math.round(whUsable)} Wh</strong>`;
+
+        // Conso totale
+        let totalWatts = 0;
+        consumers.forEach(c => {
+            if (!c.enabled) return;
+            const d = DEVICES[c.key];
+            totalWatts += d.custom ? c.customWatts : d.watts;
+        });
+
+        // Solaire instantané
+        const solarPower = parseInt(document.getElementById('solarPower').value);
+        const solarOn    = document.getElementById('solarEnabled').checked;
+        const hour       = parseInt(document.getElementById('timeSlider').value);
+        const solarWatts = solarOn ? solarPower * panelCount * solarEfficiency(hour) : 0;
+        const bilan      = solarWatts - totalWatts;
+        const netDrain   = Math.max(0, -bilan);
+
+        // Autonomie instantanée
+        let autoStr = '∞', autoHours = Infinity;
+        if (netDrain > 0) {
+            autoHours = whUsable / netDrain;
+            if (autoHours >= 100) {
+                autoStr = '>100h';
+            } else if (autoHours >= 24) {
+                autoStr = `${Math.floor(autoHours/24)}j ${Math.floor(autoHours % 24)}h`;
+            } else {
+                const hrs  = Math.floor(autoHours);
+                const mins = Math.floor((autoHours - hrs) * 60);
+                autoStr = `${hrs}h${mins.toString().padStart(2,'0')}`;
+            }
+        }
+
+        // Simulation 7 jours
+        const consoPerDay = totalWatts * 24;
+        const solarPerDay = solarOn ? dailySolarWh(solarPower, panelCount) : 0;
+        const bilanPerDay = solarPerDay - consoPerDay;
+        const bilanWeek   = bilanPerDay * 7;
+
+        let weekIcon, weekVerdict, weekClass;
+        if (bilanPerDay >= 0) {
+            weekIcon    = '🟢';
+            weekVerdict = `Autonomie illimitée - surplus ${Math.round(bilanPerDay)} Wh/j`;
+            weekClass   = 'week-good';
+        } else {
+            const daysLeft = whUsable / Math.abs(bilanPerDay);
+            if (daysLeft >= 7) {
+                const pctLeft = Math.round(100 - (Math.abs(bilanWeek) / whUsable * 100));
+                weekIcon    = '🟡';
+                weekVerdict = `OK 7 jours - batterie à ~${pctLeft}% restant`;
+                weekClass   = 'week-warn';
+            } else {
+                const d      = Math.floor(daysLeft);
+                const hExtra = Math.round((daysLeft - d) * 24);
+                weekIcon    = '🔴';
+                weekVerdict = `Batterie vide en ~${d}j ${hExtra}h - non viable 7j`;
+                weekClass   = 'week-bad';
+            }
+        }
+
+        // Statut couleur
+        let status, icon, emoji, barColor, barPct;
+        if (bilan >= 0) {
+            status = 'good'; icon = '✅'; emoji = '😎';
+            barColor = 'var(--accent-green)'; barPct = 80;
+        } else if (autoHours > 8) {
+            status = 'warn'; icon = '⚠️'; emoji = '🤔';
+            barColor = 'var(--accent-orange)';
+            barPct = Math.min(80, (autoHours / 24) * 80);
+        } else {
+            status = 'bad'; icon = '🔴'; emoji = '😰';
+            barColor = 'var(--accent-red)';
+            barPct = Math.min(40, (autoHours / 8) * 40);
+        }
+
+        const statusLabels = {
+            good: bilan > 0 ? '⚡ Surplus - batterie en charge' : '✅ Équilibré',
+            warn: `⚠️ Autonomie : ${autoStr}`,
+            bad:  `🔴 Autonomie faible : ${autoStr}`
+        };
+
+        document.getElementById('resConso').textContent     = totalWatts + ' W';
+        document.getElementById('resSolaire').textContent   = Math.round(solarWatts) + ' W';
+        document.getElementById('resBilan').textContent     = (bilan >= 0 ? '+' : '') + Math.round(bilan) + ' W';
+        document.getElementById('resAutonomie').textContent = autoStr;
+        document.getElementById('statusIcon').textContent   = icon;
+        document.getElementById('statusText').textContent   = statusLabels[status];
+        document.getElementById('statusEmoji').textContent  = emoji;
+        document.getElementById('resultsBar').className     = 'results-bar status-' + status;
+
+        const fill = document.getElementById('batteryBar');
+        fill.style.width      = barPct + '%';
+        fill.style.background = barColor;
+
+        document.getElementById('weekIcon').textContent    = weekIcon;
+        document.getElementById('weekVerdict').textContent = weekVerdict;
+        document.getElementById('weekVerdict').className   = 'week-verdict ' + weekClass;
+    }
+
+    updateTime();
+    calculate();
+</script>
+
+</body>
+</html>
